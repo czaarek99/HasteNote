@@ -5,4 +5,14 @@
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 1;
+    overflow: hidden;
+}
+
+.textEditorArea {
+    height: 100%;
+    width: 100%;
+    border: none;
+    overflow: auto;
+    outline: none;
+    box-shadow: none;
 }
