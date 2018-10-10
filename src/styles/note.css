@@ -1,0 +1,10 @@
+.noteContainer {
+    padding: 5px;
+    background-color: #9DD9D2;
+    margin: 5px;
+}
+
+.noteName {
+    color: #006d71;
+    padding-left: 5px;
+}
