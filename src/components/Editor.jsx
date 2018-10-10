@@ -4,9 +4,12 @@ import "../styles/editor.css"
 class Editor extends Component {
     render() {
         return (
-            <div className="noteEditor">
+            <section className="noteEditor">
                 <textarea className="textEditorArea" placeholder="Start taking a note..."/>
-            </div>
+                <section className="noteActionList">
+                
+                </section>
+            </section>
         );
     }
 }
