@@ -1,5 +1,6 @@
 .noteEditor {
     height: 100%;
+    clear: both;
     grid-column-start: 2;
     grid-column-end: 2;
     grid-row-start: 1;
