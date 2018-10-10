@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import Navbar from "./Navbar";
+import NoteList from "./NoteList"
+import Editor from "./Editor";
 import '../styles/app.css';
 
 class App extends Component {
   render() {
     return (
-        <h4>Hi</h4>
+        <React.Fragment>
+            <Navbar/>
+            <div>
+                <NoteList/>
+                <Editor/>
+            </div>
+        </React.Fragment>
     );
   }
 }
