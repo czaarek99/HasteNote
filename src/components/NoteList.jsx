@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import "../styles/list.css"
 
 class NoteList extends Component {
     render() {
         return (
-            <div>
+            <div className="noteList">
             
             </div>
         );

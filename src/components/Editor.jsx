@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import "../styles/editor.css"
 
 class Editor extends Component {
     render() {
         return (
-            <div>
+            <div className="noteEditor">
             
             </div>
         );

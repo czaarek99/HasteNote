@@ -1,1 +1,5 @@
-
+.appContainer {
+    display: grid;
+    grid-template-columns: 100px auto;
+    grid-template-rows: auto;
+}

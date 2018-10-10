@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import "../styles/navbar.css"
 
 class Navbar extends Component {
     render() {
         return (
             <nav>
-                <h4>HasteNote</h4>
+                <h1 className="mainHeader">HasteNote</h1>
             </nav>
         );
     }

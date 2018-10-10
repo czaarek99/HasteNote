@@ -9,7 +9,7 @@ class App extends Component {
     return (
         <React.Fragment>
             <Navbar/>
-            <div>
+            <div className="appContainer">
                 <NoteList/>
                 <Editor/>
             </div>
