@@ -4,9 +4,9 @@ import "../styles/note.css"
 class Note extends Component {
     render() {
         return (
-            <div className="noteContainer">
+            <section className="noteContainer">
                 <p className="noteName">{this.props.noteName}</p>
-            </div>
+            </section>
         );
     }
 }
