@@ -9,6 +9,14 @@ body {
     font-family: Ubuntu, sans-serif;
 }
 
+button {
+    height: 40px;
+    padding: 5px;
+    border: 0;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 #root {
     height: 100%;
     min-height: 100%;

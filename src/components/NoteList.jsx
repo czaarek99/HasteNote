@@ -6,10 +6,15 @@ class NoteList extends Component {
     render() {
         return (
             <div className="noteList">
-                <Note noteName="Testnote" color="blue"/>
-                <Note noteName="Testnote2" color="blue"/>
+                {this.getNoteList()}
             </div>
         );
+    }
+    
+    getNoteList() {
+        return this.props.notes.map(({name, color, id}) => {
+            return <Note noteName={name} color={color} key={id}/>
+        })
     }
 }
 

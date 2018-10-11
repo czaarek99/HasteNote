@@ -24,4 +24,11 @@
 .noteActionList {
     height: 50px;
     border-top: 2px solid #9DD9D2;
+    display: flex;
 }
+
+.noNoteSelected {
+    text-align: center;
+    vertical-align: middle;
+}
+
