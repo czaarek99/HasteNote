@@ -1,10 +1,6 @@
 nav {
     padding: 20px;
     border-bottom: 2px solid #9DD9D2;
-    grid-column-start: 1;
-    grid-column-end: 1;
-    grid-row-start: 1;
-    grid-row-end: 1;
 }
 
 .mainHeader {
