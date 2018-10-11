@@ -1,27 +1,24 @@
-.noteListContainer {
-    height: 100%;
-    border-right: 2px solid #9DD9D2;
-    display: flex;
-    flex-direction: column;
-}
-
 .createNoteButton2 {
-    height: 53px;
     color: #006d71;
     cursor: pointer;
-    border-top: 2px solid #9DD9D2;
+    border: solid #9DD9D2;
+    border-width: 2px 2px 0 0;
     text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 2;
 }
 
 .createNoteIcon {
     height: 30px;
     width: 30px;
-    padding: 10px;
+    padding: 9px;
 }
 
 .appContainer {
     height: calc(100% - 70px);
     display: grid;
     grid-template-columns: 340px auto;
-    grid-template-rows: auto;
+    grid-template-rows: auto 50px;
 }

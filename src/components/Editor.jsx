@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import "../styles/editor.css"
-import NoteAction from "./NoteAction";
-import {DELETE_ACTION, RENAME_ACTION, NO_ACTIVE_NOTE} from "../js/noteSymbols";
+import {NO_ACTIVE_NOTE} from "../js/noteSymbols";
 
 class Editor extends Component {
     
@@ -28,14 +27,7 @@ class Editor extends Component {
                               value={this.props.contents}
                               onChange={this.handleNoteTyping}
                     />
-                    <section className="noteActionList">
-                        {
-                            this.makeNoteAction("trash", DELETE_ACTION)
-                        }
-                        {
-                            this.makeNoteAction("pencil-alt", RENAME_ACTION)
-                        }
-                    </section>
+                    
                 </React.Fragment>
             );
         }
@@ -46,18 +38,6 @@ class Editor extends Component {
             </section>
         );
     }
-    
-    makeNoteAction(icon, action) {
-        return (
-            <NoteAction icon={icon} onAction={() => {
-                this.handleNoteAction(action);
-            }}/>
-        )
-    }
-    
-    handleNoteAction = (action) => {
-        this.props.handleNoteAction(action);
-    };
     
     handleNoteTyping = (event) => {
         this.props.handleNoteTyping(event);

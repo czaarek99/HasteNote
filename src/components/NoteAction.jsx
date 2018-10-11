@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class NoteAction extends Component {
     render() {
         return (
-            <div onClick={this.props.onAction}>
+            <div className="noteAction" onClick={this.props.onAction}>
                 <FontAwesomeIcon icon={this.props.icon} size="2x" className="noteActionIcon"/>
             </div>
         );

@@ -16,14 +16,13 @@ class NoteList extends Component {
         if (notes.length === 0) {
             return (
                 <section className="noNotes">
-                    <div className="noteListFiller"/>
                     <p className="noNotesText">
                         Click the plus button below to add your first note!
                     </p>
                 </section>
             )
         } else {
-            const notes = this.props.notes.map((note) => {
+            return this.props.notes.map((note) => {
                 return <Note note={note}
                              key={note.id}
                              handleNameChange={this.props.handleNameChange}
@@ -33,13 +32,6 @@ class NoteList extends Component {
                              }}
                 />
             });
-            
-            return (
-                <React.Fragment>
-                    <div className="noteListFiller"/>
-                    {notes}
-                </React.Fragment>
-            )
         }
     }
 }

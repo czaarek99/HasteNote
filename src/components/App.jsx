@@ -8,6 +8,7 @@ import {faTrash, faPencilAlt, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
 import randomString from 'randomstring-promise';
 import '../styles/app.css';
+import NoteActionList from "./NoteActionList";
 
 library.add(faTrash);
 library.add(faPencilAlt);
@@ -29,21 +30,21 @@ class App extends Component {
             <React.Fragment>
                 <Navbar/>
                 <div className="appContainer">
-                    <div className="noteListContainer">
-                        <NoteList notes={this.state.notes}
-                                  activeNote={this.state.activeNote}
-                                  handleOnClick={this.handleNoteClick}
-                                  handleNameChange={this.handleNoteNameChange}
-                                  handleFinishNameChange={this.handleNoteFinishNameChange}/>
-                        <div className="createNoteButton2" onClick={this.addNewNote}>
-                            <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
-                        </div>
+                    <NoteList notes={this.state.notes}
+                              activeNote={this.state.activeNote}
+                              handleOnClick={this.handleNoteClick}
+                              handleNameChange={this.handleNoteNameChange}
+                              handleFinishNameChange={this.handleNoteFinishNameChange}/>
+                    
+                    <div className="createNoteButton2" onClick={this.addNewNote}>
+                        <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
                     </div>
-                    <Editor handleNoteAction={this.handleNoteAction}
-                            handleNoteTyping={this.handleNoteTyping}
+                    <Editor handleNoteTyping={this.handleNoteTyping}
                             activeNote={this.state.activeNote}
                             addNewNote={this.addNewNote}
                             contents={this.getActiveNoteContents()}/>
+                    <NoteActionList handleNoteAction={this.handleNoteAction}
+                                    activeNote={this.state.activeNote}/>
                 </div>
             </React.Fragment>
         );
