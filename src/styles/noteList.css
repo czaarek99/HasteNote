@@ -1,10 +1,14 @@
 .noteList {
-    height: calc(100% - 55px);
+    flex: 1;
+    overflow: auto;
+}
+
+.noteListFiller {
+    height: 5px;
 }
 
 .noNotesText {
     font-weight: bold;
-    margin-top: 5px;
     padding: 10px 10px 10px 10px;
     text-align: center;
 }
