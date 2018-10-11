@@ -60,6 +60,10 @@ class App extends Component {
                 renaming: true
             };
             
+            notes.forEach((note) => {
+                note.renaming = false;
+            });
+            
             notes.push(note);
             this.setState({
                 notes,
