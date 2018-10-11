@@ -2,6 +2,11 @@
     padding: 20px 0 20px 5px;
     background-color: #9DD9D2;
     margin: 5px;
+    cursor: pointer;
+}
+
+.noteContainer:hover {
+    background-color: #b4e6df;
 }
 
 .noteName {
