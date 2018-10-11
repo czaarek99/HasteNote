@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import "../styles/noteAction.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class NoteAction extends Component {
     render() {
-        const iconSrc = `png/${this.props.icon}.png`;
-    
         return (
             <div onClick={this.props.onAction}>
-                <img src={iconSrc} className="noteActionIcon" alt=""/>
+                <FontAwesomeIcon icon={this.props.icon} size="2x" className="noteActionIcon"/>
             </div>
         );
     }

@@ -30,7 +30,7 @@ class Editor extends Component {
                             this.makeNoteAction("trash", DELETE_ACTION)
                         }
                         {
-                            this.makeNoteAction("pencil", RENAME_ACTION)
+                            this.makeNoteAction("pencil-alt", RENAME_ACTION)
                         }
                     </section>
                 </React.Fragment>

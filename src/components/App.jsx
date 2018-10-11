@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import Navbar from "./Navbar";
 import NoteList from "./NoteList"
 import Editor from "./Editor";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import '../styles/app.css';
 import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
+
+library.add(faTrash);
+library.add(faPencilAlt);
 
 class App extends Component {
     
