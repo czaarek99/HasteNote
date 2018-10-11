@@ -9,7 +9,25 @@
     background-color: #b4e6df;
 }
 
-.noteName {
+.noteContainer:hover input {
+    background-color: #b4e6df;
+}
+
+.noteName, .noteNameInput {
+    margin: 2px 0 0 10px;
+    font-size: 17px;
     color: #006d71;
-    padding-left: 5px;
+}
+
+.noteName {
+    margin-bottom: 2px;
+}
+
+.noteNameInput {
+    height: 20px;
+    border: solid white;
+    border-width: 0 0 2px 0;
+    background-color: #9DD9D2;
+    padding: 0;
+    outline: none;
 }

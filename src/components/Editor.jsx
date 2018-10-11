@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import "../styles/editor.css"
 import NoteAction from "./NoteAction";
-import {DELETE_ACTION, EDIT_ACTION, NO_ACTIVE_NOTE} from "../js/noteSymbols";
+import {DELETE_ACTION, RENAME_ACTION, NO_ACTIVE_NOTE} from "../js/noteSymbols";
 
 class Editor extends Component {
-    
-    constructor(props) {
-        super(props);
-    }
     
     render() {
         let noteEditorContents;
@@ -34,7 +30,7 @@ class Editor extends Component {
                             this.makeNoteAction("trash", DELETE_ACTION)
                         }
                         {
-                            this.makeNoteAction("pencil", EDIT_ACTION)
+                            this.makeNoteAction("pencil", RENAME_ACTION)
                         }
                     </section>
                 </React.Fragment>

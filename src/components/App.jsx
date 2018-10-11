@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import NoteList from "./NoteList"
 import Editor from "./Editor";
 import '../styles/app.css';
-import {DELETE_ACTION, NO_ACTIVE_NOTE} from "../js/noteSymbols";
+import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
 
 class App extends Component {
     
@@ -16,13 +16,15 @@ class App extends Component {
                     id: 0,
                     name: "Testnote",
                     color: "blue",
-                    contents: "hello there fam"
+                    contents: "hello there fam",
+                    renaming: false
                 },
                 {
                     id: 1,
                     name: "Testnote2",
                     color: "yellow",
-                    contents: "more content bruh"
+                    contents: "more content bruh",
+                    renaming: false
                 }
             ],
             activeNote: NO_ACTIVE_NOTE
@@ -36,7 +38,9 @@ class App extends Component {
                 <div className="appContainer">
                     <NoteList notes={this.state.notes}
                               activeNote={this.state.activeNote}
-                              handleOnClick={this.handleNoteClick}/>
+                              handleOnClick={this.handleNoteClick}
+                              handleNameChange={this.handleNoteNameChange}
+                              handleFinishNameChange={this.handleNoteFinishNameChange}/>
                     <Editor handleNoteAction={this.handleNoteAction}
                             handleNoteTyping={this.handleNoteTyping}
                             activeNote={this.state.activeNote}
@@ -56,17 +60,29 @@ class App extends Component {
         }
     }
     
-    handleNoteTyping = (event) => {
+    updateActiveNote(field, value) {
         const activeNote = this.state.activeNote;
         const notes = [...this.state.notes];
         const index = notes.indexOf(activeNote);
         const newNote = {...activeNote};
         notes[index] = newNote;
-        notes[index].contents = event.target.value;
+        notes[index][field] = value;
         this.setState({
             notes,
             activeNote: newNote
         });
+    }
+    
+    handleNoteFinishNameChange = () => {
+        this.updateActiveNote("renaming", false);
+    };
+    
+    handleNoteNameChange = (event) => {
+        this.updateActiveNote("name", event.target.value);
+    };
+    
+    handleNoteTyping = (event) => {
+        this.updateActiveNote("contents", event.target.value);
     };
     
     handleNoteClick = (note) => {
@@ -85,6 +101,9 @@ class App extends Component {
                 notes,
                 activeNote: NO_ACTIVE_NOTE
             });
+        } else if (action === RENAME_ACTION) {
+            const prevRenamingValue = this.state.activeNote.renaming;
+            this.updateActiveNote("renaming", !prevRenamingValue);
         }
     }
 }
