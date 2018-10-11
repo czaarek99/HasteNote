@@ -1,3 +1,18 @@
+.noteListContainer {
+    height: 100%;
+    border-right: 2px solid #9DD9D2;
+}
+
+.createNoteButton2 {
+    font-size: 1.7em;
+    height: 50px;
+    line-height: 43px;
+    color: #006d71;
+    cursor: pointer;
+    border-top: 2px solid #9DD9D2;
+    text-align: center;
+}
+
 .appContainer {
     height: calc(100% - 70px);
     display: grid;

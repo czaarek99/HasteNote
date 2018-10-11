@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import Navbar from "./Navbar";
 import NoteList from "./NoteList"
 import Editor from "./Editor";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
-import '../styles/app.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {faTrash, faPencilAlt, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
+import randomString from 'randomstring-promise';
+import '../styles/app.css';
 
 library.add(faTrash);
 library.add(faPencilAlt);
+library.add(faPlus);
 
 class App extends Component {
     
@@ -16,22 +19,7 @@ class App extends Component {
         super(props);
         
         this.state = {
-            notes: [
-                {
-                    id: 0,
-                    name: "Testnote",
-                    color: "blue",
-                    contents: "hello there fam",
-                    renaming: false
-                },
-                {
-                    id: 1,
-                    name: "Testnote2",
-                    color: "yellow",
-                    contents: "more content bruh",
-                    renaming: false
-                }
-            ],
+            notes: [],
             activeNote: NO_ACTIVE_NOTE
         }
     }
@@ -41,11 +29,16 @@ class App extends Component {
             <React.Fragment>
                 <Navbar/>
                 <div className="appContainer">
-                    <NoteList notes={this.state.notes}
-                              activeNote={this.state.activeNote}
-                              handleOnClick={this.handleNoteClick}
-                              handleNameChange={this.handleNoteNameChange}
-                              handleFinishNameChange={this.handleNoteFinishNameChange}/>
+                    <div className="noteListContainer">
+                        <NoteList notes={this.state.notes}
+                                  activeNote={this.state.activeNote}
+                                  handleOnClick={this.handleNoteClick}
+                                  handleNameChange={this.handleNoteNameChange}
+                                  handleFinishNameChange={this.handleNoteFinishNameChange}/>
+                        <div className="createNoteButton2" onClick={this.addNewNote}>
+                            <FontAwesomeIcon icon="plus" title="Add new note"/>
+                        </div>
+                    </div>
                     <Editor handleNoteAction={this.handleNoteAction}
                             handleNoteTyping={this.handleNoteTyping}
                             activeNote={this.state.activeNote}
@@ -54,6 +47,25 @@ class App extends Component {
             </React.Fragment>
         );
     }
+    
+    addNewNote = () => {
+        const notes = [...this.state.notes];
+        
+        randomString(16, "alphanumeric").then((id) => {
+            const note = {
+                id: id,
+                name: "Unnamed",
+                color: "white",
+                renaming: true
+            };
+            
+            notes.push(note);
+            this.setState({
+                notes,
+                activeNote: note
+            });
+        })
+    };
     
     getActiveNoteContents() {
         const currentNote = this.state.activeNote;
