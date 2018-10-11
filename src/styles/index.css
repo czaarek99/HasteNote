@@ -20,6 +20,11 @@ button {
     background-color: #2ca6a4;
 }
 
+p {
+    margin: 0;
+    padding: 0;
+}
+
 #root {
     height: 100%;
     min-height: 100%;
