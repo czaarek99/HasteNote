@@ -1,3 +1,10 @@
 .noteList {
     height: calc(100% - 55px);
 }
+
+.noNotesText {
+    font-weight: bold;
+    margin-top: 5px;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+}

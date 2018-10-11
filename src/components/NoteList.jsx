@@ -12,18 +12,27 @@ class NoteList extends Component {
     }
     
     getNoteList() {
-        return this.props.notes.map((note) => {
-            return <Note note={note}
-                         key={note.id}
-                         handleOnClick= {
-                             () => {
+        const notes = this.props.notes;
+        if (notes.length === 0) {
+            return (
+                <section className="noNotes">
+                    <p className="noNotesText">
+                        Click the plus button below to add your first note!
+                    </p>
+                </section>
+            )
+        } else {
+            return this.props.notes.map((note) => {
+                return <Note note={note}
+                             key={note.id}
+                             handleNameChange={this.props.handleNameChange}
+                             handleFinishNameChange={this.props.handleFinishNameChange}
+                             handleOnClick={() => {
                                  this.props.handleOnClick(note)
-                             }
-                         }
-                         handleNameChange={this.props.handleNameChange}
-                         handleFinishNameChange={this.props.handleFinishNameChange}
-            />
-        })
+                             }}
+                />
+            })
+        }
     }
 }
 

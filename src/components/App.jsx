@@ -36,7 +36,7 @@ class App extends Component {
                                   handleNameChange={this.handleNoteNameChange}
                                   handleFinishNameChange={this.handleNoteFinishNameChange}/>
                         <div className="createNoteButton2" onClick={this.addNewNote}>
-                            <FontAwesomeIcon icon="plus" title="Add new note"/>
+                            <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
                         </div>
                     </div>
                     <Editor handleNoteAction={this.handleNoteAction}
