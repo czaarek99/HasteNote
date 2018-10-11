@@ -13,7 +13,10 @@ class Editor extends Component {
                 <div className="noNoteSelectedContainer">
                     <div className="noNoteSelected">
                         <p className="noNoteText">Select or create a new note to start editing!</p>
-                        <button className="createNoteButton">Create note</button>
+                        <button className="createNoteButton"
+                                onClick={this.props.addNewNote}>
+                            Create note
+                        </button>
                     </div>
                 </div>
             );

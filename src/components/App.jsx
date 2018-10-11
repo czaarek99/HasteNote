@@ -42,6 +42,7 @@ class App extends Component {
                     <Editor handleNoteAction={this.handleNoteAction}
                             handleNoteTyping={this.handleNoteTyping}
                             activeNote={this.state.activeNote}
+                            addNewNote={this.addNewNote}
                             contents={this.getActiveNoteContents()}/>
                 </div>
             </React.Fragment>
