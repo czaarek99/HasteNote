@@ -12,9 +12,12 @@ body {
 button {
     height: 40px;
     padding: 5px;
-    border: 0;
+    font-size: 18px;
     font-weight: 700;
+    border: 1px transparent;
+    border-radius: 2px;
     cursor: pointer;
+    background-color: #2ca6a4;
 }
 
 #root {
