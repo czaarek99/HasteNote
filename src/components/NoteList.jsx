@@ -12,8 +12,16 @@ class NoteList extends Component {
     }
     
     getNoteList() {
-        return this.props.notes.map(({name, color, id}) => {
-            return <Note noteName={name} color={color} key={id}/>
+        return this.props.notes.map((note) => {
+            return <Note noteName={note.name}
+                         color={note.color}
+                         key={note.id}
+                         handleOnClick={
+                             () => {
+                                 this.props.handleOnClick(note)
+                             }
+                         }
+            />
         })
     }
 }

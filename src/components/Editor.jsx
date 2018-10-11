@@ -4,6 +4,11 @@ import NoteAction from "./NoteAction";
 import {DELETE_ACTION, EDIT_ACTION, NO_ACTIVE_NOTE} from "../js/noteSymbols";
 
 class Editor extends Component {
+    
+    constructor(props) {
+        super(props);
+    }
+    
     render() {
         let noteEditorContents;
         
@@ -19,7 +24,11 @@ class Editor extends Component {
         } else {
             noteEditorContents = (
                 <React.Fragment>
-                    <textarea className="textEditorArea" placeholder="Start taking a note..."/>
+                    <textarea className="textEditorArea"
+                              placeholder="Start taking a note..."
+                              value={this.props.contents}
+                              onChange={this.handleNoteTyping}
+                    />
                     <section className="noteActionList">
                         {
                             this.makeNoteAction("trash", DELETE_ACTION)
@@ -48,8 +57,12 @@ class Editor extends Component {
     }
     
     handleNoteAction = (action) => {
-        return this.props.handleNoteAction(action);
-    }
+        this.props.handleNoteAction(action);
+    };
+    
+    handleNoteTyping = (event) => {
+        this.props.handleNoteTyping(event);
+    };
 }
 
 export default Editor;

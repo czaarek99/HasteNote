@@ -15,12 +15,14 @@ class App extends Component {
                 {
                     id: 0,
                     name: "Testnote",
-                    color: "blue"
+                    color: "blue",
+                    contents: "hello there fam"
                 },
                 {
                     id: 1,
                     name: "Testnote2",
-                    color: "yellow"
+                    color: "yellow",
+                    contents: "more content bruh"
                 }
             ],
             activeNote: NO_ACTIVE_NOTE
@@ -33,18 +35,50 @@ class App extends Component {
                 <Navbar/>
                 <div className="appContainer">
                     <NoteList notes={this.state.notes}
-                              activeNote={this.state.activeNote}/>
+                              activeNote={this.state.activeNote}
+                              handleOnClick={this.handleNoteClick}/>
                     <Editor handleNoteAction={this.handleNoteAction}
-                            activeNote={this.state.activeNote}/>
+                            handleNoteTyping={this.handleNoteTyping}
+                            activeNote={this.state.activeNote}
+                            contents={this.getActiveNoteContents()}/>
                 </div>
             </React.Fragment>
         );
     }
     
+    getActiveNoteContents() {
+        const currentNote = this.state.activeNote;
+        
+        if (currentNote === NO_ACTIVE_NOTE) {
+            return "";
+        } else {
+            return currentNote.contents;
+        }
+    }
+    
+    handleNoteTyping = (event) => {
+        const activeNote = this.state.activeNote;
+        const notes = [...this.state.notes];
+        const index = notes.indexOf(activeNote);
+        const newNote = {...activeNote};
+        notes[index] = newNote;
+        notes[index].contents = event.target.value;
+        this.setState({
+            notes,
+            activeNote: newNote
+        });
+    };
+    
+    handleNoteClick = (note) => {
+        this.setState({
+            activeNote: note
+        })
+    };
+    
     handleNoteAction = (action) => {
         if (action === DELETE_ACTION) {
             const notes = this.state.notes.filter((note) => {
-                return note.id !== this.state.activeNote;
+                return note.id !== this.state.activeNote.id;
             });
             
             this.setState({
