@@ -27,8 +27,21 @@
     display: flex;
 }
 
-.noNoteSelected {
-    text-align: center;
-    vertical-align: middle;
+.noNoteSelectedContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
+.noNoteSelected {
+    text-align: center;
+}
+
+.noNoteText {
+    font-size: 18px;
+}
+
+.createNoteButton {
+    margin: 15px;
+}

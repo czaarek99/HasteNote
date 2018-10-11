@@ -9,12 +9,10 @@ class Editor extends Component {
         
         if (this.props.activeNote === NO_ACTIVE_NOTE) {
             noteEditorContents = (
-                <div className="noNoteSelected">
-                    <div className="noNoteTextContainer">
-                        <p className="noNoteText">Select or Create a new note to start editing!</p>
-                    </div>
-                    <div className="noNoteActionContainer">
-                        <button>Create note</button>
+                <div className="noNoteSelectedContainer">
+                    <div className="noNoteSelected">
+                        <p className="noNoteText">Select or create a new note to start editing!</p>
+                        <button className="createNoteButton">Create note</button>
                     </div>
                 </div>
             );
