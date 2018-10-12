@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import "../styles/navbar.scss"
+import User from "./User";
 
 class Navbar extends Component {
     render() {
         return (
             <nav>
-                <a href="/">
-                    <h1 className="mainHeader">hastenote</h1>
-                </a>
+                <h1 className="mainHeader">
+                    <a href="/" className="headerLink">hastenote</a>
+                </h1>
+                <User username="User"/>
             </nav>
         );
     }

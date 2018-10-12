@@ -1,8 +1,9 @@
 @import "colors";
 
 nav {
-    padding: 20px;
     border-bottom: 2px solid $mainColorLight;
+    display: grid;
+    grid-template-columns: auto 200px;
 
     a {
         text-decoration: none;
@@ -10,11 +11,16 @@ nav {
 }
 
 .mainHeader {
+    padding: 20px;
     margin: 0;
-    color: $mainColor;
-    transition: color .1s;
+    display: inline-block;
 }
 
-.mainHeader:hover {
+.headerLink {
+    transition: color .15s;
+    color: $mainColor;
+}
+
+.headerLink:hover {
     color: $mainColorDark;
 }

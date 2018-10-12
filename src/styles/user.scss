@@ -1,0 +1,28 @@
+@import "colors";
+
+.userData {
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    cursor: pointer;
+}
+
+.userIcon {
+    font-size: 27px;
+    line-height: 27px;
+    justify-self: right;
+    margin: 10px;
+    background-color: $mainColor;
+    border-radius: 100px;
+}
+
+.userIcon:hover {
+    border: 2px solid $mainColor;
+    margin: 10px 8px 10px;
+}
+
+.username {
+    justify-self: left;
+    font-weight: bold;
+}
