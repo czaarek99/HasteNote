@@ -2,7 +2,7 @@
 
 .noteList {
     padding: 5px;
-    border-right: 2px solid $mainColorLight;
+    border-right: 2px solid lighten($mainColorLight, 12%);
     flex: 1;
     overflow: auto;
 }
