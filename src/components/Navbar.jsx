@@ -5,7 +5,9 @@ class Navbar extends Component {
     render() {
         return (
             <nav>
-                <h1 className="mainHeader">HasteNote</h1>
+                <a href="/">
+                    <h1 className="mainHeader">hastenote</h1>
+                </a>
             </nav>
         );
     }

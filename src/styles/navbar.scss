@@ -3,9 +3,18 @@
 nav {
     padding: 20px;
     border-bottom: 2px solid $mainColorLight;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 .mainHeader {
     margin: 0;
     color: $mainColor;
+    transition: color .1s;
+}
+
+.mainHeader:hover {
+    color: $mainColorDark;
 }
