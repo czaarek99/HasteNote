@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import "../styles/editor.css"
+import "../styles/editor.scss"
 import {NO_ACTIVE_NOTE} from "../js/noteSymbols";
 
 class Editor extends Component {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import NoteAction from "./NoteAction";
 import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
-import "../styles/noteActionList.css"
+import "../styles/noteActionList.scss"
 
 class NoteActionList extends Component {
     render() {

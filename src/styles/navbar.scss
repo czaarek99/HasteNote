@@ -1,0 +1,11 @@
+@import "colors";
+
+nav {
+    padding: 20px;
+    border-bottom: 2px solid $mainColorLight;
+}
+
+.mainHeader {
+    margin: 0;
+    color: $mainColor;
+}

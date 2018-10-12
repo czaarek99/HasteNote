@@ -1,24 +1,26 @@
+@import "colors";
+
 .noteContainer {
     padding: 20px 0 20px 5px;
-    background-color: #9DD9D2;
+    background-color: $mainColorLight;
     margin: 5px;
     cursor: pointer;
     border: 2px solid transparent;
 }
 
 .noteContainer.active {
-    background-image: linear-gradient(to right, #9DD9D2, #00b1b5);
-    border: 2px solid #90ccc5;
+    background-image: linear-gradient(to right, $mainColorLight, $mainColorLightAlt);
+    border: 2px solid darken($mainColorLight, 10%);
 }
 
 .noteContainer:hover {
-    background-color: #b4e6df;
+    background-color: lighten($mainColorLight, 9%);
 }
 
 .noteName, .noteNameInput {
     margin: 2px 0 0 10px;
     font-size: 17px;
-    color: #006d71;
+    color: $mainColorDark;
 }
 
 .noteName {

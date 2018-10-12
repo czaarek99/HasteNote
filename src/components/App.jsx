@@ -7,7 +7,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {faTrash, faPencilAlt, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
 import randomString from 'randomstring-promise';
-import '../styles/app.css';
+import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
 
 library.add(faTrash);

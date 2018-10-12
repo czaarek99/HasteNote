@@ -1,7 +1,9 @@
+@import "colors";
+
 .createNoteButton2 {
-    color: #006d71;
+    color: $mainColorDark;
     cursor: pointer;
-    border: solid #9DD9D2;
+    border: solid $mainColorLight;
     border-width: 2px 2px 0 0;
     text-align: center;
     grid-column-start: 1;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import "../styles/noteAction.css"
+import "../styles/noteAction.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class NoteAction extends Component {
