@@ -9,8 +9,12 @@
     border-top: 2px solid $mainColorLight;
 }
 
+.noteActionList {
+    color: darken($mainColorDark, 20%);
+}
+
 .noteActionList.disabled {
-    color: rgba(0, 0, 0, .2);
+    color: $mainColorLight;
     cursor: not-allowed;
 }
 
