@@ -3,13 +3,15 @@
     background-color: #9DD9D2;
     margin: 5px;
     cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.noteContainer.active {
+    background-image: linear-gradient(to right, #9DD9D2, #00b1b5);
+    border: 2px solid #90ccc5;
 }
 
 .noteContainer:hover {
-    background-color: #b4e6df;
-}
-
-.noteContainer:hover input {
     background-color: #b4e6df;
 }
 
@@ -23,11 +25,15 @@
     margin-bottom: 2px;
 }
 
+.noteContainer.active .noteName {
+    font-weight: bold;
+}
+
 .noteNameInput {
     height: 20px;
     border: solid white;
     border-width: 0 0 2px 0;
-    background-color: #9DD9D2;
+    background-color: transparent;
     padding: 0;
     outline: none;
 }

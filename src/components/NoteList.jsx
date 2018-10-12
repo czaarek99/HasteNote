@@ -25,6 +25,7 @@ class NoteList extends Component {
             return this.props.notes.map((note) => {
                 return <Note note={note}
                              key={note.id}
+                             activeNote={this.props.activeNote}
                              handleNameChange={this.props.handleNameChange}
                              handleFinishNameChange={this.props.handleFinishNameChange}
                              handleOnClick={() => {

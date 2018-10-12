@@ -12,7 +12,7 @@ class Note extends Component {
     }
     
     render() {
-        const {name, renaming} = this.props.note;
+        const {name, renaming, id} = this.props.note;
         
         let noteContainerContents = <p className="noteName">{name}</p>;
         if (renaming) {
@@ -25,8 +25,13 @@ class Note extends Component {
             </React.Fragment>
         }
         
+        let noteContainerClasses = "noteContainer ";
+        if(this.props.activeNote.id === id) {
+            noteContainerClasses += "active";
+        }
+        
         return (
-            <section className="noteContainer"
+            <section className={noteContainerClasses}
                      onClick={this.handleOnClick}
                      onMouseLeave={this.handleMouseLeave}
                      onMouseEnter={this.handleMouseEnter}>
