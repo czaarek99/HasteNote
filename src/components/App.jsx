@@ -4,7 +4,7 @@ import NoteList from "./NoteList"
 import Editor from "./Editor";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faTrash, faPencilAlt, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {faTrash, faPencilAlt, faPlus, faShareAlt} from '@fortawesome/free-solid-svg-icons'
 import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
 import randomString from 'randomstring-promise';
 import '../styles/app.scss';
@@ -13,6 +13,7 @@ import NoteActionList from "./NoteActionList";
 library.add(faTrash);
 library.add(faPencilAlt);
 library.add(faPlus);
+library.add(faShareAlt);
 
 class App extends Component {
     

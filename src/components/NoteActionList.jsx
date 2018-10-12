@@ -1,23 +1,33 @@
 import React, {Component} from 'react';
 import NoteAction from "./NoteAction";
-import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
+import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION, SHARE_ACTION} from "../js/noteSymbols";
 import "../styles/noteActionList.scss"
+
+const actions = [
+    {
+        icon: "trash",
+        action: DELETE_ACTION
+    },
+    {
+        icon: "pencil-alt",
+        action: RENAME_ACTION
+    },
+    {
+        icon: "share-alt",
+        action: SHARE_ACTION
+    }
+];
 
 class NoteActionList extends Component {
     render() {
         let sectionClasses = "noteActionList ";
-        if(!this.hasActiveNote()) {
+        if (!this.hasActiveNote()) {
             sectionClasses += "disabled"
         }
         
         return (
             <section className={sectionClasses}>
-                {
-                    this.makeNoteAction("trash", DELETE_ACTION)
-                }
-                {
-                    this.makeNoteAction("pencil-alt", RENAME_ACTION)
-                }
+                {this.getNoteActions()}
             </section>
         );
     }
@@ -26,16 +36,18 @@ class NoteActionList extends Component {
         return this.props.activeNote !== NO_ACTIVE_NOTE;
     }
     
-    makeNoteAction(icon, action) {
-        return (
-            <NoteAction icon={icon} onAction={() => {
-                this.handleNoteAction(action);
-            }}/>
-        )
+    getNoteActions() {
+        return actions.map(({icon, action}) => {
+            return (
+                <NoteAction key={action.toString()} icon={icon} onAction={() => {
+                    this.handleNoteAction(action);
+                }}/>
+            )
+        })
     }
-    
+   
     handleNoteAction = (action) => {
-        if(this.hasActiveNote()) {
+        if (this.hasActiveNote()) {
             this.props.handleNoteAction(action);
         }
     };
