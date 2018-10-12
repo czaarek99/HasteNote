@@ -14,12 +14,19 @@ body {
 button {
     height: 40px;
     padding: 5px;
-    font-size: 18px;
-    font-weight: 700;
-    border: 1px transparent;
+    font-size: 16px;
+    font-weight: 600;
+    border: 4px;
+    text-transform: uppercase;
     border-radius: 2px;
     cursor: pointer;
     background-color: $mainColor;
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
 }
 
 p {
