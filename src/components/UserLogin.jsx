@@ -54,6 +54,20 @@ class UserLogin extends Component {
         );
     }
     
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleDocumentKeyDown);
+    }
+    
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleDocumentKeyDown);
+    }
+    
+    handleDocumentKeyDown = (event) => {
+        if(event.key === "Enter") {
+            this.handleOnLogin();
+        }
+    };
+    
     handleLoginInputChange = (event) => {
         const state = {...this.state};
         state.username = event.target.value;
