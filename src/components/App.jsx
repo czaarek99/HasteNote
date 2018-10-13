@@ -95,27 +95,40 @@ class App extends Component {
         }
     }
     
-    addNewNote = () => {
+    addNewNote = async () => {
         const notes = [...this.state.notes];
         
-        randomString(16, "alphanumeric").then((id) => {
-            const note = {
-                id: id,
-                name: "Unnamed",
-                color: "white",
-                renaming: true
-            };
-            
-            notes.forEach((note) => {
-                note.renaming = false;
-            });
-            
-            notes.push(note);
-            this.setState({
-                notes,
-                activeNote: note
-            });
-        })
+        const id = await randomString(16, "alphanumeric");
+        const note = {
+            id: id,
+            name: "Unnamed",
+            color: "white",
+            renaming: true
+        };
+        
+        notes.forEach((note) => {
+            note.renaming = false;
+        });
+        
+        notes.push(note);
+        this.setState({
+            notes,
+            activeNote: note
+        });
+    
+        const body = new URLSearchParams();
+        body.set("noteId", id);
+        
+        const response = await fetch("/note", {
+            method: "PUT",
+            credentials: "include",
+            body
+        });
+        
+        if (response.status !== 200) {
+            const responseText = await response.text();
+            console.log("Failed to create new note with error: " + responseText);
+        }
     };
     
     getActiveNoteContents() {
