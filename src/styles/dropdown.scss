@@ -1,0 +1,17 @@
+@import "colors";
+
+.dropdown {
+    position: fixed;
+    border: 2px transparent;
+    border-radius: 3px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0 4px 8px -2px, rgba(9, 30, 66, 0.31) 0 0 1px;
+}
+
+.dropdownOption {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.dropdownOption:hover {
+    background-color: $mainColorLight;
+}
