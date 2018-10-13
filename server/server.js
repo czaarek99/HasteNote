@@ -1,9 +1,19 @@
 const express = require("express");
 const app = express();
+const database = require("./database");
 const port = process.env.PORT || 5000;
 
-app.listen(port);
+async function startServer() {
+    await database.sequelize.sync({
+        force: false
+    });
+    
+    app.listen(port);
+    
+    app.get("/test", (req, res) => {
+        res.send("Working fine");
+    });
+}
 
-app.get("/test", (req, res) => {
-    res.send("Working fine");
-});
+startServer();
+
