@@ -7,8 +7,8 @@
     text-align: center;
     grid-column-start: 1;
     grid-column-end: 1;
-    grid-row-start: 2;
-    grid-row-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 3;
 }
 
 .createNoteIcon {
@@ -18,8 +18,4 @@
 }
 
 .appContainer {
-    height: calc(100% - 70px);
-    display: grid;
-    grid-template-columns: 340px auto;
-    grid-template-rows: auto 50px;
 }

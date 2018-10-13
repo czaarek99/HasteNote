@@ -22,7 +22,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         
-        const { cookies } = props;
+        const {cookies} = props;
         
         this.state = {
             notes: [],
@@ -35,23 +35,21 @@ class App extends Component {
         return (
             <React.Fragment>
                 <Navbar/>
-                <div className="appContainer">
-                    <NoteList notes={this.state.notes}
-                              activeNote={this.state.activeNote}
-                              handleOnClick={this.handleNoteClick}
-                              handleNameChange={this.handleNoteNameChange}
-                              handleFinishNameChange={this.handleNoteFinishNameChange}/>
-                    
-                    <div className="createNoteButton2" onClick={this.addNewNote}>
-                        <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
-                    </div>
-                    <Editor handleNoteTyping={this.handleNoteTyping}
-                            activeNote={this.state.activeNote}
-                            addNewNote={this.addNewNote}
-                            contents={this.getActiveNoteContents()}/>
-                    <NoteActionList handleNoteAction={this.handleNoteAction}
-                                    activeNote={this.state.activeNote}/>
+                <NoteList notes={this.state.notes}
+                          activeNote={this.state.activeNote}
+                          handleOnClick={this.handleNoteClick}
+                          handleNameChange={this.handleNoteNameChange}
+                          handleFinishNameChange={this.handleNoteFinishNameChange}/>
+                
+                <div className="createNoteButton2" onClick={this.addNewNote}>
+                    <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
                 </div>
+                <Editor handleNoteTyping={this.handleNoteTyping}
+                        activeNote={this.state.activeNote}
+                        addNewNote={this.addNewNote}
+                        contents={this.getActiveNoteContents()}/>
+                <NoteActionList handleNoteAction={this.handleNoteAction}
+                                activeNote={this.state.activeNote}/>
             </React.Fragment>
         );
     }

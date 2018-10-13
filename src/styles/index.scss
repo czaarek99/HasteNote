@@ -38,4 +38,7 @@ p {
 #root {
     height: 100%;
     min-height: 100%;
+    display: grid;
+    grid-template-columns: 340px auto;
+    grid-template-rows: 80px auto 50px;
 }

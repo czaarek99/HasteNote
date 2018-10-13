@@ -4,6 +4,9 @@ nav {
     border-bottom: 2px solid $mainColorLight;
     display: grid;
     grid-template-columns: auto 200px;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: span 2;
 
     a {
         text-decoration: none;
