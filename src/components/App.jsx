@@ -34,7 +34,7 @@ class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <Navbar/>
+                <Navbar loggedIn={this.state.loggedIn}/>
                 <NoteList notes={this.state.notes}
                           activeNote={this.state.activeNote}
                           handleOnClick={this.handleNoteClick}
