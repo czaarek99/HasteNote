@@ -10,6 +10,7 @@ import randomString from 'randomstring-promise';
 import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
 import {withCookies, Cookies} from "react-cookie";
+import UserLogin from "./UserLogin";
 
 library.add(faTrash);
 library.add(faPencilAlt);
@@ -32,9 +33,9 @@ class App extends Component {
     }
     
     render() {
-        return (
-            <React.Fragment>
-                <Navbar loggedIn={this.state.loggedIn}/>
+        let pageContents;
+        if (this.state.loggedIn) {
+            pageContents = <React.Fragment>
                 <NoteList notes={this.state.notes}
                           activeNote={this.state.activeNote}
                           handleOnClick={this.handleNoteClick}
@@ -50,6 +51,15 @@ class App extends Component {
                         contents={this.getActiveNoteContents()}/>
                 <NoteActionList handleNoteAction={this.handleNoteAction}
                                 activeNote={this.state.activeNote}/>
+            </React.Fragment>
+        } else {
+            pageContents = <UserLogin/>
+        }
+        
+        return (
+            <React.Fragment>
+                <Navbar loggedIn={this.state.loggedIn}/>
+                {pageContents}
             </React.Fragment>
         );
     }

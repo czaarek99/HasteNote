@@ -1,0 +1,55 @@
+@import "colors";
+
+.appContainerLogin {
+    grid-row-start: span 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+}
+
+.appContainerLogin.loading {
+    button {
+        opacity: .4;
+        pointer-events: none;
+    }
+}
+
+.signInText {
+    margin: 30px 10px 10px 10px;
+    font-weight: 700;
+}
+
+.usernameInput, .passwordInput {
+    margin: 0 auto;
+    display: block;
+    width: 220px;
+    height: 30px;
+    padding: 5px;
+    outline: none;
+    border: 2px solid $mainColorLight;
+}
+
+.usernameInput {
+    border-radius: 2px 2px 0 0;
+}
+
+.passwordInput {
+    border-width: 0 2px 2px 2px;
+    border-radius: 0 0 2px 2px;
+}
+
+.loginError {
+    background-color: #ff514d;
+    border: 2px transparent;
+    border-radius: 2px;
+    width: 214px;
+    text-align: center;
+    margin: 10px auto 0 auto;
+    padding: 10px;
+}
+
+.loginButton, .registerButton {
+    margin: 10px;
+    background-color: #2F7CFF;
+    color: white;
+}
