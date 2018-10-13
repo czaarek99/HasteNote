@@ -17,5 +17,20 @@
     padding: 9px;
 }
 
-.appContainer {
+.fillGrid {
+    grid-row-start: span 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
+
+.notesLoading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.notesLoadingText {
+    text-align: center;
+    font-weight: 700;
+}
+

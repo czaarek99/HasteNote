@@ -15,7 +15,7 @@ class UserLogin extends Component {
     }
     
     render() {
-        let appContainerClasses = "appContainerLogin ";
+        let appContainerClasses = "appContainerLogin fillGrid ";
         if (this.state.loading) {
             appContainerClasses += "loading";
         }

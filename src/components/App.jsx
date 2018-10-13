@@ -18,6 +18,7 @@ library.add(faPlus);
 library.add(faShareAlt);
 library.add(faUserCircle);
 
+//TODO: Show errors if fetch() for some reason fails in the background
 class App extends Component {
     
     constructor(props) {
@@ -28,13 +29,23 @@ class App extends Component {
         this.state = {
             notes: [],
             activeNote: NO_ACTIVE_NOTE,
-            loggedIn: cookies.get("loggedIn") === "true"
+            loggedIn: cookies.get("loggedIn") === "true",
+            loadingNotes: true
         }
     }
     
     render() {
         let pageContents;
-        if (this.state.loggedIn) {
+        if (!this.state.loggedIn) {
+            pageContents = <UserLogin/>
+        } else if (this.state.loadingNotes) {
+            //TODO: Add some kind of animation here to let the user know we're working on it
+            pageContents = <section className="notesLoading fillGrid">
+                <p className="notesLoadingText">
+                    Please wait while your notes are being loaded...
+                </p>
+            </section>
+        } else {
             pageContents = <React.Fragment>
                 <NoteList notes={this.state.notes}
                           activeNote={this.state.activeNote}
@@ -52,8 +63,6 @@ class App extends Component {
                 <NoteActionList handleNoteAction={this.handleNoteAction}
                                 activeNote={this.state.activeNote}/>
             </React.Fragment>
-        } else {
-            pageContents = <UserLogin/>
         }
         
         const username = this.props.cookies.get("username");
@@ -63,6 +72,27 @@ class App extends Component {
                 {pageContents}
             </React.Fragment>
         );
+    }
+    
+    componentDidMount() {
+        this.fetchNotes();
+    }
+    
+    async fetchNotes() {
+        const response = await fetch("/note/all", {
+            credentials: "include",
+        });
+        
+        if (response.status === 200) {
+            const notes = await response.json();
+            const state = {...this.state};
+            state.loadingNotes = false;
+            state.notes = notes;
+            this.setState(state);
+        } else {
+            const responseText = await response.text();
+            console.log("Loading notes error: " + responseText);
+        }
     }
     
     addNewNote = () => {
