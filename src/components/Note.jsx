@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import "../styles/note.scss"
+import onClickOutside from "react-onclickoutside"
 
 class Note extends Component {
     
@@ -20,13 +21,13 @@ class Note extends Component {
                 <input className="noteNameInput"
                        value={name}
                        onChange={this.handleNameChange}
-                       onKeyDown={this.handleKeyDown}
+                       onKeyDown={this.handleReactKeyDown}
                        autoFocus/>
             </React.Fragment>
         }
         
         let noteContainerClasses = "noteContainer ";
-        if(this.props.activeNote.id === id) {
+        if (this.props.activeNote.id === id) {
             noteContainerClasses += "active";
         }
         
@@ -40,9 +41,26 @@ class Note extends Component {
         );
     }
     
-    handleKeyDown = (event) => {
-        if((event.key === "Enter" || event.key === "Escape")
-            && this.props.note.renaming) {
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleDocumentKeyDown);
+    }
+    
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleDocumentKeyDown)
+    }
+    
+    handleClickOutside = () => {
+        this.finishNameChange();
+    };
+    
+    handleDocumentKeyDown = (event) => {
+        if (event.key === "Escape") {
+            this.finishNameChange();
+        }
+    };
+    
+    handleReactKeyDown = (event) => {
+        if (event.key === "Enter") {
             this.finishNameChange();
         }
     };
@@ -62,16 +80,18 @@ class Note extends Component {
     };
     
     handleMouseLeave = () => {
-        if (this.props.note.renaming && this.state.mouseEntered) {
+        if (this.state.mouseEntered) {
             this.finishNameChange();
         }
     };
     
     finishNameChange() {
-        this.props.handleFinishNameChange();
-        this.setState({
-            mouseEntered: false
-        })
+        if (this.props.note.renaming) {
+            this.props.handleFinishNameChange();
+            this.setState({
+                mouseEntered: false
+            })
+        }
     }
     
     handleNameChange = (event) => {
@@ -79,4 +99,4 @@ class Note extends Component {
     }
 }
 
-export default Note;
+export default onClickOutside(Note);
