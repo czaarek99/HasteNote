@@ -8,6 +8,7 @@ const util = require("./util");
 const port = process.env.PORT || 5000;
 
 const loginRoute = require("./routes/login");
+const noteRoute = require("./routes/note");
 
 async function startServer() {
     await database.sequelize.sync({
@@ -41,6 +42,16 @@ async function startServer() {
     }));
     
     app.use("/login", loginRoute);
+    
+    app.all("*", (req, res, next) => {
+        if(req.session && req.session.loggedIn) {
+            next();
+        } else {
+            throw new util.UserError("This route can only be accessed after logging in", 401)
+        }
+    });
+    
+    app.use("/note", noteRoute);
     
     app.use((error, req, res, next) => {
         if(error instanceof util.UserError) {

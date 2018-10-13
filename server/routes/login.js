@@ -8,8 +8,7 @@ const USERNAME_MIN_LENGTH = 3;
 const USERNAME_MAX_LENGTH = 20;
 
 function verifyLoginBody(req) {
-    let username = req.body.username;
-    let password = req.body.password;
+    const {username, password} = req.body;
     
     if (username === undefined) {
         throw new util.UserError("Please provide a valid username", 400);
@@ -23,8 +22,9 @@ function verifyLoginBody(req) {
     }
 }
 
-function setLoggedIn(req, res, username) {
+function setLoggedIn(req, res, username, userId) {
     req.session.loggedIn = true;
+    req.session.userId = userId;
     res.cookie("loggedIn", true);
     res.cookie("username", username);
     res.status(200).send();
@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
         user.password);
     
     if(passwordsAreEqual) {
-        setLoggedIn(req, res, username);
+        setLoggedIn(req, res, username, user.id);
     } else {
         throw new util.UserError("Wrong password!", 401);
     }
@@ -87,7 +87,7 @@ router.post("/register", async (req, res) => {
             password: hashedPassword
         });
         
-        setLoggedIn(req, res, username);
+        setLoggedIn(req, res, username, user.id);
     }
 });
 

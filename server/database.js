@@ -52,7 +52,8 @@ dbExports.Note = defineModel("Note", {
         type: DataTypes.INTEGER
     },
     name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        defaultValue: "Untitled"
     },
     color: {
         type: DataTypes.STRING(6),
@@ -62,6 +63,10 @@ dbExports.Note = defineModel("Note", {
         type: DataTypes.TEXT,
         defaultValue: ""
     },
+    noteId: {
+        type: DataTypes.STRING(16),
+        unique: true
+    }
 });
 
 addDefaultUserAssociation(dbExports.Note);
