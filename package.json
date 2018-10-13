@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "connect-session-sequelize": "^5.2.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "mysql2": "^1.6.1",
     "randomstring-promise": "0.0.2",
     "react": "^16.5.2",
