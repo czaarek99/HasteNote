@@ -1,4 +1,4 @@
-const router = require("express-promise-router");
+const router = require("express-promise-router")();
 
 router.post("/login", async (req, res) => {
 
