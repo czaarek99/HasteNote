@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const port = process.env.PORT || 5000;
 
+const loginRoute = require("./routes/login");
+
 async function startServer() {
     await database.sequelize.sync({
         force: false
@@ -29,9 +31,7 @@ async function startServer() {
         }
     }));
     
-    app.get("/test", (req, res) => {
-        res.send("Working fine");
-    });
+    app.use("/login", loginRoute);
     
     app.listen(port);
 }
