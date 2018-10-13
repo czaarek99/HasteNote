@@ -15,11 +15,14 @@ nav {
 
 .mainHeader {
     padding: 20px;
+    font-size: 25px;
     margin: 0;
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 .headerLink {
+    height: 28px;
     transition: color .15s;
     color: $mainColor;
 }
