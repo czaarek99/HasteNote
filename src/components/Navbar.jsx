@@ -7,7 +7,7 @@ class Navbar extends Component {
     render() {
         let user = <React.Fragment/>;
         if(this.props.loggedIn) {
-            user = <User username="User"/>;
+            user = <User username={this.props.username}/>;
         }
         
         return (

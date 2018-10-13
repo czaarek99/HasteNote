@@ -2,21 +2,8 @@ import React, {Component} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import "../styles/user.scss"
 import Dropdown from "./Dropdown";
+import {withCookies} from "react-cookie";
 import {POSITION_BOTTOM} from "../js/noteSymbols";
-
-const userDropdownOptions = [
-    {
-        name: "Log out",
-        handleOnClick: () => {
-        }
-    },
-    {
-        name: "Settings",
-        handleOnClick: () => {
-        }
-    }
-];
-
 
 class User extends Component {
     
@@ -26,7 +13,22 @@ class User extends Component {
         this.userDataRef = React.createRef();
         this.state = {
             showDropdown: false
-        }
+        };
+        
+        this.userDropdownOptions = [
+            {
+                name: "Log out",
+                handleOnClick: () => {
+                    this.props.cookies.set("loggedIn", false);
+                    window.location.reload();
+                }
+            },
+            {
+                name: "Settings",
+                handleOnClick: () => {
+                }
+            }
+        ];
     }
     
     render() {
@@ -41,7 +43,7 @@ class User extends Component {
             
             dropdown = <Dropdown parentElement={this.userDataRef.current}
                                  position={POSITION_BOTTOM}
-                                 options={userDropdownOptions}
+                                 options={this.userDropdownOptions}
                                  onClose={this.handleDropdownClose}
                                  margins={margins}/>
         }
@@ -70,4 +72,4 @@ class User extends Component {
     };
 }
 
-export default User;
+export default withCookies(User);

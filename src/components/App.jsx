@@ -9,7 +9,7 @@ import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
 import randomString from 'randomstring-promise';
 import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
-import {withCookies, Cookies} from "react-cookie";
+import {withCookies} from "react-cookie";
 import UserLogin from "./UserLogin";
 
 library.add(faTrash);
@@ -56,9 +56,10 @@ class App extends Component {
             pageContents = <UserLogin/>
         }
         
+        const username = this.props.cookies.get("username");
         return (
             <React.Fragment>
-                <Navbar loggedIn={this.state.loggedIn}/>
+                <Navbar loggedIn={this.state.loggedIn} username={username}/>
                 {pageContents}
             </React.Fragment>
         );

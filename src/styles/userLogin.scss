@@ -8,7 +8,7 @@
 }
 
 .appContainerLogin.loading {
-    button {
+    button, input {
         opacity: .4;
         pointer-events: none;
     }

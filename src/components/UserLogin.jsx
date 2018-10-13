@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import "../styles/userLogin.scss"
-import * as CommonLogin from "../../common/login"
 
 class UserLogin extends Component {
     
@@ -17,7 +16,7 @@ class UserLogin extends Component {
     
     render() {
         let appContainerClasses = "appContainerLogin ";
-        if(this.state.loading) {
+        if (this.state.loading) {
             appContainerClasses += "loading";
         }
         
@@ -25,7 +24,7 @@ class UserLogin extends Component {
             display: "none"
         };
         
-        if(this.state.error.length > 0) {
+        if (this.state.error.length > 0) {
             loginErrorStyle.display = "block";
         }
         
@@ -39,7 +38,7 @@ class UserLogin extends Component {
                 <input className="passwordInput"
                        placeholder="Password"
                        onChange={this.handlePasswordInputChange}
-                       value={this.state.password} type="password" />
+                       value={this.state.password} type="password"/>
                 <p className="loginError" style={loginErrorStyle}>{this.state.error}</p>
                 <div className="actionContainer">
                     <button className="loginButton"
@@ -54,7 +53,7 @@ class UserLogin extends Component {
             </section>
         );
     }
-   
+    
     handleLoginInputChange = (event) => {
         const state = {...this.state};
         state.username = event.target.value;
@@ -74,22 +73,37 @@ class UserLogin extends Component {
     };
     
     handleOnRegister = async () => {
-        const {username, password} = this.state;
-        const result = CommonLogin.verifyRegistration(username, password);
-        if(result.verified) {
-            this.setLoading(true);
-        } else {
-            this.showError(result.error);
-        }
+        await this.handleOnRegisterAndLogin("register")
     };
     
     handleOnLogin = async () => {
-        this.setLoading(true)
+        await this.handleOnRegisterAndLogin("login");
+    };
+    
+    handleOnRegisterAndLogin = async (type) => {
+        this.setLoading(true);
+        
+        const body = new URLSearchParams();
+        body.set("username", this.state.username);
+        body.set("password", this.state.password);
+        
+        const response = await fetch("/login/" + type, {
+            method: "POST",
+            body
+        });
+        
+        if (response.status === 200) {
+            window.location.reload();
+        } else {
+            const responseText = await response.text();
+            this.showError(responseText);
+        }
     };
     
     showError = (error) => {
         const state = {...this.state};
         state.error = error;
+        state.loading = false;
         this.setState(state);
     };
 }
