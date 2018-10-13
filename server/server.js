@@ -21,6 +21,8 @@ async function startServer() {
         db: database.sequelize
     });
     
+    await store.sync();
+    
     app.use(session({
         saveUninitialized: false,
         resave: false,
