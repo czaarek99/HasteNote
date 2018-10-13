@@ -10,6 +10,7 @@
     "mysql2": "^1.6.1",
     "randomstring-promise": "0.0.2",
     "react": "^16.5.2",
+    "react-cookie": "^3.0.4",
     "react-dom": "^16.5.2",
     "react-onclickoutside": "^6.7.1",
     "react-scripts": "2.0.4",

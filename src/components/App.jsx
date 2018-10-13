@@ -9,6 +9,7 @@ import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
 import randomString from 'randomstring-promise';
 import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
+import {withCookies, Cookies} from "react-cookie";
 
 library.add(faTrash);
 library.add(faPencilAlt);
@@ -21,9 +22,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         
+        const { cookies } = props;
+        
         this.state = {
             notes: [],
-            activeNote: NO_ACTIVE_NOTE
+            activeNote: NO_ACTIVE_NOTE,
+            loggedIn: cookies.get("loggedIn") === "true"
         }
     }
     
@@ -133,4 +137,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withCookies(App);
