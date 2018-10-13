@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import "../styles/userLogin.scss"
+import * as CommonLogin from "../../common/login"
 
 class UserLogin extends Component {
     
@@ -74,12 +75,11 @@ class UserLogin extends Component {
     
     handleOnRegister = async () => {
         const {username, password} = this.state;
-        if(username.length < 3) {
-            this.showError("Username has to be at least 3 characters long");
-        } else if(password.length < 10) {
-            this.showError("Password has to be at least 10 characters long");
-        } else {
+        const result = CommonLogin.verifyRegistration(username, password);
+        if(result.verified) {
             this.setLoading(true);
+        } else {
+            this.showError(result.error);
         }
     };
     
