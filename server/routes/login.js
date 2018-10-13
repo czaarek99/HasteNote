@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
     if(passwordsAreEqual) {
         setLoggedIn(req, res, username);
     } else {
-        throw new util.UserError("Wrong password!")
+        throw new util.UserError("Wrong password!", 401);
     }
     
 });
