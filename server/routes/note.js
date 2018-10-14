@@ -17,22 +17,11 @@ router.get("/all", async (req, res) => {
         where: {
             userId: req.session.userId
         }
+    }, {
+        plain: true
     });
     
-    const response = [];
-    for (const note of notes) {
-        const plainNote = note.get({
-            plain: true
-        });
-        
-        //TODO: Should probably be handled globally by app
-        plainNote.renaming = false;
-        plainNote.saving = false;
-        
-        response.push(plainNote);
-    }
-    
-    res.status(200).send(response);
+    res.status(200).send(notes);
 });
 
 router.delete("/", async (req, res) => {

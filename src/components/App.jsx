@@ -123,11 +123,18 @@ class App extends Component {
         });
         
         if (response.ok) {
-            const notes = await response.json();
-            const state = {...this.state};
-            state.loadingNotes = false;
-            state.notes = notes;
-            this.setState(state);
+            const dbNotes = await response.json();
+            const notes = [];
+            for(const note of dbNotes) {
+                note.renaming = false;
+                note.saving = false;
+                notes.push(note);
+            }
+            
+            this.setState({
+                notes,
+                loadingNotes: false
+            });
         } else {
             await this.showFetchError(response, "load");
         }
