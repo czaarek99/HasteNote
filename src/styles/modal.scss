@@ -10,6 +10,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: opacity .7s;
+    opacity: 0;
 }
 
 .modal {
@@ -24,6 +26,8 @@
     row-gap: 10px;
     padding: 10px;
     box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    transform: translateY(15px);
+    transition: transform .7s;
 }
 
 .modalTitle {

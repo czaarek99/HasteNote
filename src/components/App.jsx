@@ -4,7 +4,6 @@ import NoteList from "./NoteList"
 import Editor from "./Editor";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faTrash, faPencilAlt, faPlus, faShareAlt, faUserCircle} from '@fortawesome/free-solid-svg-icons'
 import randomString from 'randomstring-promise';
 import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
@@ -19,12 +18,21 @@ import {
     UPDATE_CONTENT_ACTION,
     UPDATE_NAME_ACTION
 } from "../js/noteSymbols";
+import {
+    faTrash,
+    faPencilAlt,
+    faPlus,
+    faShareAlt,
+    faUserCircle,
+    faTimes
+} from '@fortawesome/free-solid-svg-icons'
 
 library.add(faTrash);
 library.add(faPencilAlt);
 library.add(faPlus);
 library.add(faShareAlt);
 library.add(faUserCircle);
+library.add(faTimes);
 
 //TODO: Show errors if fetch() for some reason fails in the background
 class App extends Component {

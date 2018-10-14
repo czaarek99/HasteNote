@@ -2,31 +2,42 @@ import React, {Component} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import "../styles/modal.scss"
 
+const MODAL_FADE_TIME = 700;
+
 class Modal extends Component {
     
     constructor(props) {
         super(props);
         
         this.state = {
-            show: true
+            show: false,
+            closed: false
         }
     }
     
     render() {
-        const modalStyles = {
-            display: "inherit"
+        const modalContainerStyles = {
+            opacity: 0
         };
+    
+        const modalStyles = {};
         
-        if (!this.state.show) {
-            modalStyles.display = "none";
+        if (this.state.show) {
+            modalContainerStyles.opacity = 1;
+            modalStyles.transform = "translateY(0)";
         }
+        
+        if(this.state.closed) {
+            modalContainerStyles.display = "none";
+        }
+        
         
         return (
             <div className="modalContainer"
-                 style={modalStyles}
+                 style={modalContainerStyles}
                  onClick={this.handleOnClick}>
                 
-                <section className="modal">
+                <section className="modal" style={modalStyles}>
                     <p className="modalTitle">{this.props.title}</p>
                     <FontAwesomeIcon icon="times"
                                      className="modalCloseButton"
@@ -42,16 +53,31 @@ class Modal extends Component {
         );
     }
     
+    updateShow(show) {
+        const state = {...this.state};
+        state.show = show;
+        this.setState(state);
+    }
+    
+    componentDidMount() {
+        window.requestAnimationFrame(() => {
+            this.updateShow(true);
+        });
+    }
+    
     handleOnClick = (event) => {
-        if (event.target === event.currentTarget) {
+        if (this.state.show && event.target === event.currentTarget) {
             this.handleOnClose();
         }
     };
     
     handleOnClose = () => {
-        this.setState({
-            show: false
-        })
+        this.updateShow(false);
+        setTimeout(() => {
+            const state = {...this.state};
+            state.closed = true;
+            this.setState(state);
+        }, MODAL_FADE_TIME);
     }
 }
 
