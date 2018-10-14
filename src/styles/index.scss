@@ -41,4 +41,8 @@ p {
     display: grid;
     grid-template-columns: 340px auto;
     grid-template-rows: 80px auto 50px;
+    grid-template-areas:
+        "nav nav"
+        "list editor"
+        "appActions noteActions";
 }

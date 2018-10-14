@@ -1,10 +1,7 @@
 @import "colors";
 
 .noteActionList {
-    grid-column-start: 2;
-    grid-column-end: 2;
-    grid-row-start: 3;
-    grid-row-end: 3;
+    grid-area: noteActions;
     display: flex;
     border: solid $mainColorLight;
     border-width: 2px 0 0 2px;
