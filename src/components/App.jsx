@@ -104,7 +104,9 @@ class App extends Component {
     }
     
     componentDidMount() {
-        this.fetchNotes();
+        if(this.state.loggedIn) {
+            this.fetchNotes();
+        }
     }
     
     showError(message) {
