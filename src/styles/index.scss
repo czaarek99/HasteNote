@@ -57,3 +57,9 @@ p {
                 "appActions noteActions";
     }
 }
+
+@media screen and (min-width: $mediumWindow) {
+    #root {
+        grid-template-columns: 650px auto;
+    }
+}

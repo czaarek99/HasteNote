@@ -27,7 +27,7 @@ const MEDIUM_WINDOW = Symbol("mediumWindow");
 const BIG_WINDOW = Symbol("bigWindow");
 
 const SMALL_WINDOW_SIZE = 768;
-const MEDIUM_WINDOW_SIZE = 1500;
+const MEDIUM_WINDOW_SIZE = 1300;
 
 class AppActionList extends Component {
     

@@ -25,6 +25,14 @@
     }
 }
 
+@media screen and (min-width: $mediumWindow) {
+    .noteList {
+        justify-content: center;
+        display: flex;
+        flex-flow: wrap;
+    }
+}
+
 .noNotesText {
     font-weight: bold;
     padding: 10px 10px 10px 10px;
