@@ -82,12 +82,12 @@ router.post("/register", async (req, res) => {
         
         const hashedPassword = await bcrypt.hash(password, 11);
         
-        await database.User.create({
+        const newUser = await database.User.create({
             username,
             password: hashedPassword
         });
         
-        setLoggedIn(req, res, username, user.id);
+        setLoggedIn(req, res, username, newUser.id);
     }
 });
 
