@@ -5,7 +5,7 @@ const util = require("util");
 function requireNoteId(req) {
     const noteId = req.body.noteId;
     
-    if(noteId === undefined) {
+    if (noteId === undefined) {
         throw new util.UserError("Please provide a noteId for this action", 400);
     }
     
@@ -20,10 +20,13 @@ router.get("/all", async (req, res) => {
     });
     
     const response = [];
-    for(const note of notes) {
+    for (const note of notes) {
         const plainNote = note.get({
             plain: true
         });
+        
+        //TODO: Should probably be handled globally by app
+        plainNote.renaming = false;
         
         response.push(plainNote);
     }
@@ -33,7 +36,7 @@ router.get("/all", async (req, res) => {
 
 router.delete("/", async (req, res) => {
     const noteId = requireNoteId(req);
-   
+    
     const destroyedRows = await database.Note.destroy({
         where: {
             noteId,
@@ -41,7 +44,7 @@ router.delete("/", async (req, res) => {
         }
     });
     
-    if(destroyedRows === 0) {
+    if (destroyedRows === 0) {
         throw new util.UserError("No note found with that id", 404);
     } else {
         res.status(200).send();
@@ -63,22 +66,20 @@ router.patch("/contents", async (req, res) => {
     const noteId = requireNoteId(req);
     let contents = req.body.contents;
     
-    if(contents === undefined) {
+    if (contents === undefined) {
         throw new util.UserError("Please provide new contents for this note", 400);
     }
     
     contents = contents.toString();
     
-    const updatedRows = await database.Note.update({
-        userId: req.session.userId,
-        noteId
-    }, {
+    await database.Note.update({
         contents
+    }, {
+        where: {
+            userId: req.session.userId,
+            noteId
+        }
     });
-    
-    if(updatedRows === 0) {
-        throw new util.UserError("Did not find a note to update", 404);
-    }
     
     res.status(200).send();
 });
@@ -87,22 +88,20 @@ router.patch("/name", async (req, res) => {
     const noteId = requireNoteId(req);
     let name = req.body.name;
     
-    if(name === undefined) {
+    if (name === undefined) {
         throw new util.UserError("Please provide a name", 400);
     }
     
     name = name.toString();
     
-    const updatedRows = await database.Note.update({
-        userId: req.session.userId,
-        noteId
-    }, {
+    await database.Note.update({
         name
+    }, {
+        where: {
+            userId: req.session.userId,
+            noteId
+        }
     });
-    
-    if(updatedRows === 0) {
-        throw new util.UserError("Did not find a note to update", 404);
-    }
     
     res.status(200).send();
 });
