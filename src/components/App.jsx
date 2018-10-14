@@ -11,9 +11,9 @@ import {withCookies} from "react-cookie";
 import UserLogin from "./UserLogin";
 import Modal from "./Modal";
 import {
-    ACTIVE_ACTION,
+    ACTIVE_ACTION, ADD_NEW_NOTE_ACTION, CLOSE_SIDEBAR_ACTION,
     DELETE_ACTION,
-    NO_ACTIVE_NOTE,
+    NO_ACTIVE_NOTE, OPEN_SIDEBAR_ACTION,
     START_RENAME_ACTION,
     STOP_RENAME_ACTION,
     UPDATE_CONTENT_ACTION,
@@ -77,7 +77,7 @@ class App extends Component {
                           handleNoteAction={this.handleNoteAction}/>
                 <Editor handleNoteAction={this.handleNoteAction}
                         activeNote={this.state.activeNote}
-                        addNewNote={this.addNewNote}
+                        addNewNote={() => {this.handleAppAction(ADD_NEW_NOTE_ACTION)}}
                         contents={this.getActiveNoteContents()}/>
                 <AppActionList handleAppAction={this.handleAppAction}/>
                 <NoteActionList handleNoteAction={this.handleNoteAction}
@@ -125,7 +125,7 @@ class App extends Component {
         if (response.ok) {
             const dbNotes = await response.json();
             const notes = [];
-            for(const note of dbNotes) {
+            for (const note of dbNotes) {
                 note.renaming = false;
                 note.saving = false;
                 notes.push(note);
@@ -139,41 +139,6 @@ class App extends Component {
             await this.showFetchError(response, "load");
         }
     }
-    
-    addNewNote = async () => {
-        const notes = [...this.state.notes];
-        
-        const noteId = await randomString(16, "alphanumeric");
-        const note = {
-            name: "Unnamed",
-            color: "white",
-            renaming: true,
-            noteId
-        };
-        
-        notes.forEach((note) => {
-            note.renaming = false;
-        });
-        
-        notes.push(note);
-        this.setState({
-            notes,
-            activeNote: note
-        });
-        
-        const body = new URLSearchParams();
-        body.set("noteId", noteId);
-        
-        const response = await fetch("/note", {
-            method: "PUT",
-            credentials: "include",
-            body
-        });
-        
-        if (!response.ok) {
-            await this.showFetchError(response, "add");
-        }
-    };
     
     getActiveNoteContents() {
         const currentNote = this.state.activeNote;
@@ -200,10 +165,10 @@ class App extends Component {
     
     updateNote(noteId, field, value) {
         const notes = [...this.state.notes];
-        for(let i = 0; i < notes.length; i++) {
+        for (let i = 0; i < notes.length; i++) {
             const note = notes[i];
             
-            if(note.noteId === noteId) {
+            if (note.noteId === noteId) {
                 notes[i] = {...note};
                 notes[i][field] = value;
                 
@@ -214,8 +179,45 @@ class App extends Component {
         throw new Error("No note with that id");
     }
     
-    handleAppAction = (action) => {
-    
+    handleAppAction = async (action) => {
+        if (action === ADD_NEW_NOTE_ACTION) {
+            const notes = [...this.state.notes];
+            
+            const noteId = await randomString(16, "alphanumeric");
+            const note = {
+                name: "Unnamed",
+                color: "white",
+                renaming: true,
+                noteId
+            };
+            
+            notes.forEach((note) => {
+                note.renaming = false;
+            });
+            
+            notes.push(note);
+            this.setState({
+                notes,
+                activeNote: note
+            });
+            
+            const body = new URLSearchParams();
+            body.set("noteId", noteId);
+            
+            const response = await fetch("/note", {
+                method: "PUT",
+                credentials: "include",
+                body
+            });
+            
+            if (!response.ok) {
+                await this.showFetchError(response, "add");
+            }
+        } else if(action === CLOSE_SIDEBAR_ACTION) {
+        
+        } else if(action === OPEN_SIDEBAR_ACTION) {
+            
+        }
     };
     
     handleNoteAction = async (action, data) => {
