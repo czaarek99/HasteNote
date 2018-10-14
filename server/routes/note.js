@@ -59,7 +59,7 @@ router.put("/", async (req, res) => {
     res.status(200).send();
 });
 
-router.patch("/", async (req, res) => {
+router.patch("/contents", async (req, res) => {
     const noteId = requireNoteId(req);
     let contents = req.body.contents;
     
@@ -67,7 +67,7 @@ router.patch("/", async (req, res) => {
         throw new util.UserError("Please provide new contents for this note", 400);
     }
     
-    contents.toString();
+    contents = contents.toString();
     
     const updatedRows = await database.Note.update({
         userId: req.session.userId,
