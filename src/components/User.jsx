@@ -15,6 +15,7 @@ class User extends Component {
             showDropdown: false
         };
         
+        //TODO: Add a settings menu
         this.userDropdownOptions = [
             {
                 name: "Log out",

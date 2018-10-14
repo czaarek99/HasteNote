@@ -36,6 +36,7 @@ library.add(faShareAlt);
 library.add(faUserCircle);
 library.add(faTimes);
 
+//TODO: Implement note sharing
 class App extends Component {
     
     constructor(props) {
