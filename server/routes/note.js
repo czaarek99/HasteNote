@@ -83,4 +83,28 @@ router.patch("/contents", async (req, res) => {
     res.status(200).send();
 });
 
+router.patch("/name", async (req, res) => {
+    const noteId = requireNoteId(req);
+    let name = req.body.name;
+    
+    if(name === undefined) {
+        throw new util.UserError("Please provide a name", 400);
+    }
+    
+    name = name.toString();
+    
+    const updatedRows = await database.Note.update({
+        userId: req.session.userId,
+        noteId
+    }, {
+        name
+    });
+    
+    if(updatedRows === 0) {
+        throw new util.UserError("Did not find a note to update", 404);
+    }
+    
+    res.status(200).send();
+});
+
 module.exports = router;
