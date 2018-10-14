@@ -98,12 +98,12 @@ class App extends Component {
     addNewNote = async () => {
         const notes = [...this.state.notes];
         
-        const id = await randomString(16, "alphanumeric");
+        const noteId = await randomString(16, "alphanumeric");
         const note = {
-            id: id,
             name: "Unnamed",
             color: "white",
-            renaming: true
+            renaming: true,
+            noteId
         };
         
         notes.forEach((note) => {
@@ -117,7 +117,7 @@ class App extends Component {
         });
     
         const body = new URLSearchParams();
-        body.set("noteId", id);
+        body.set("noteId", noteId);
         
         const response = await fetch("/note", {
             method: "PUT",
@@ -172,16 +172,33 @@ class App extends Component {
         })
     };
     
-    handleNoteAction = (action) => {
+    handleNoteAction = async (action) => {
         if (action === DELETE_ACTION) {
+            const activeNoteId = this.state.activeNote.noteId;
+            
             const notes = this.state.notes.filter((note) => {
-                return note.id !== this.state.activeNote.id;
+                return note.noteId !== activeNoteId;
             });
             
             this.setState({
                 notes,
                 activeNote: NO_ACTIVE_NOTE
             });
+            
+            const body = new URLSearchParams();
+            body.append("noteId", activeNoteId);
+            
+            const response = await fetch("/note", {
+                method: "DELETE",
+                credentials: "include",
+                body
+            });
+            
+            if(response.status !== 200) {
+                const responseText = await response.text();
+                console.log("Failed to delete note with error: " + responseText);
+            }
+            
         } else if (action === RENAME_ACTION) {
             const prevRenamingValue = this.state.activeNote.renaming;
             this.updateActiveNote("renaming", !prevRenamingValue);

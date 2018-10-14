@@ -34,12 +34,18 @@ router.get("/all", async (req, res) => {
 router.delete("/", async (req, res) => {
     const noteId = requireNoteId(req);
    
-    await database.Note.destroy({
+    const destroyedRows = await database.Note.destroy({
         where: {
             noteId,
             userId: req.session.userId
         }
-    })
+    });
+    
+    if(destroyedRows === 0) {
+        throw new util.UserError("No note found with that id", 404);
+    } else {
+        res.status(200).send();
+    }
 });
 
 router.put("/", async (req, res) => {
