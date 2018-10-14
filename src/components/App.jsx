@@ -27,6 +27,7 @@ import {
     faUserCircle,
     faTimes
 } from '@fortawesome/free-solid-svg-icons'
+import LoadingGrid from "./LoadingGrid";
 
 library.add(faTrash);
 library.add(faPencilAlt);
@@ -59,8 +60,8 @@ class App extends Component {
         if (!this.state.loggedIn) {
             pageContents = <UserLogin/>
         } else if (this.state.loadingNotes) {
-            //TODO: Add some kind of animation here to let the user know we're working on it
             pageContents = <section className="notesLoading fillGrid">
+                <LoadingGrid/>
                 <p className="notesLoadingText">
                     Please wait while your notes are being loaded...
                 </p>
