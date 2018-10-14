@@ -5,7 +5,12 @@ import Editor from "./Editor";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faTrash, faPencilAlt, faPlus, faShareAlt, faUserCircle} from '@fortawesome/free-solid-svg-icons'
-import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION} from "../js/noteSymbols";
+import {
+    ACTIVE_ACTION,
+    DELETE_ACTION,
+    NO_ACTIVE_NOTE, START_RENAME_ACTION, STOP_RENAME_ACTION,
+    UPDATE_NAME_ACTION
+} from "../js/noteSymbols";
 import randomString from 'randomstring-promise';
 import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
@@ -32,6 +37,8 @@ class App extends Component {
             loggedIn: cookies.get("loggedIn") === "true",
             loadingNotes: true
         }
+        
+        this.handleNoteAction = this.handleNoteAction.bind(this);
     }
     
     render() {
@@ -49,9 +56,7 @@ class App extends Component {
             pageContents = <React.Fragment>
                 <NoteList notes={this.state.notes}
                           activeNote={this.state.activeNote}
-                          handleOnClick={this.handleNoteClick}
-                          handleNameChange={this.handleNoteNameChange}
-                          handleFinishNameChange={this.handleNoteFinishNameChange}/>
+                          handleNoteAction={this.handleNoteAction}/>
                 
                 <div className="createNoteButton2" onClick={this.addNewNote}>
                     <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
@@ -115,7 +120,7 @@ class App extends Component {
             notes,
             activeNote: note
         });
-    
+        
         const body = new URLSearchParams();
         body.set("noteId", noteId);
         
@@ -154,54 +159,66 @@ class App extends Component {
         });
     }
     
-    handleNoteFinishNameChange = () => {
-        this.updateActiveNote("renaming", false);
-    };
-    
-    handleNoteNameChange = (event) => {
-        this.updateActiveNote("name", event.target.value);
-    };
-    
     handleNoteTyping = (event) => {
         this.updateActiveNote("contents", event.target.value);
     };
     
-    handleNoteClick = (note) => {
-        this.setState({
-            activeNote: note
-        })
-    };
-    
-    handleNoteAction = async (action) => {
-        if (action === DELETE_ACTION) {
-            const activeNoteId = this.state.activeNote.noteId;
-            
-            const notes = this.state.notes.filter((note) => {
-                return note.noteId !== activeNoteId;
-            });
-            
-            this.setState({
-                notes,
-                activeNote: NO_ACTIVE_NOTE
-            });
-            
+    handleNoteAction = async (action, data) => {
+        const activeNoteId = this.state.activeNote.noteId;
+        
+        if (action === ACTIVE_ACTION) {
+            const state = {...this.state};
+            state.activeNote = data;
+            this.setState(state);
+        }
+        
+        if (activeNoteId !== NO_ACTIVE_NOTE) {
             const body = new URLSearchParams();
             body.append("noteId", activeNoteId);
             
-            const response = await fetch("/note", {
-                method: "DELETE",
-                credentials: "include",
-                body
-            });
-            
-            if(response.status !== 200) {
-                const responseText = await response.text();
-                console.log("Failed to delete note with error: " + responseText);
+            if (action === DELETE_ACTION) {
+                
+                const notes = this.state.notes.filter((note) => {
+                    return note.noteId !== activeNoteId;
+                });
+                
+                this.setState({
+                    notes,
+                    activeNote: NO_ACTIVE_NOTE
+                });
+                
+                
+                const response = await fetch("/note", {
+                    method: "DELETE",
+                    credentials: "include",
+                    body
+                });
+                
+                if (response.status !== 200) {
+                    const responseText = await response.text();
+                    console.log("Failed to delete note with error: " + responseText);
+                }
+                
+            } else if (action === START_RENAME_ACTION) {
+                this.updateActiveNote("renaming", true);
+            } else if (action === STOP_RENAME_ACTION) {
+                const {name} = this.state.activeNote;
+                this.updateActiveNote("renaming", false);
+                
+                body.set("name", name);
+                const response = await fetch("/note/name", {
+                    method: "PATCH",
+                    credentials: "include",
+                    body
+                });
+                
+                if (response.status !== 200) {
+                    const responseText = await response.text();
+                    console.log("Failed to rename note with error: " + responseText);
+                }
+            } else if (action === UPDATE_NAME_ACTION) {
+                this.updateActiveNote("name", data);
             }
-            
-        } else if (action === RENAME_ACTION) {
-            const prevRenamingValue = this.state.activeNote.renaming;
-            this.updateActiveNote("renaming", !prevRenamingValue);
         }
     }
 }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "../styles/note.scss"
 import onClickOutside from "react-onclickoutside"
+import {ACTIVE_ACTION, STOP_RENAME_ACTION, UPDATE_NAME_ACTION} from "../js/noteSymbols";
 
 class Note extends Component {
     
@@ -13,7 +14,7 @@ class Note extends Component {
     }
     
     render() {
-        const {name, renaming, id} = this.props.note;
+        const {name, renaming, noteId} = this.props.note;
         
         let noteContainerContents = <p className="noteName">{name}</p>;
         if (renaming) {
@@ -27,7 +28,7 @@ class Note extends Component {
         }
         
         let noteContainerClasses = "noteContainer ";
-        if (this.props.activeNote.id === id) {
+        if (this.props.activeNote.noteId === noteId) {
             noteContainerClasses += "active";
         }
         
@@ -67,7 +68,7 @@ class Note extends Component {
     
     handleOnClick = () => {
         if (!this.props.note.renaming) {
-            this.props.handleOnClick()
+            this.props.handleNoteAction(ACTIVE_ACTION, this.props.note);
         }
     };
     
@@ -85,17 +86,17 @@ class Note extends Component {
         }
     };
     
-    finishNameChange() {
+    finishNameChange = () => {
         if (this.props.note.renaming) {
-            this.props.handleFinishNameChange();
+            this.props.handleNoteAction(STOP_RENAME_ACTION);
             this.setState({
                 mouseEntered: false
             })
         }
-    }
+    };
     
     handleNameChange = (event) => {
-        this.props.handleNameChange(event);
+        this.props.handleNoteAction(UPDATE_NAME_ACTION, event.target.value);
     }
 }
 

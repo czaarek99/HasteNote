@@ -1,6 +1,10 @@
 export const DELETE_ACTION = Symbol("delete");
-export const RENAME_ACTION = Symbol("edit");
+export const START_RENAME_ACTION = Symbol("startRename");
+export const STOP_RENAME_ACTION = Symbol("stopRename");
+export const UPDATE_NAME_ACTION = Symbol("updateName");
 export const SHARE_ACTION = Symbol("share");
+export const ACTIVE_ACTION = Symbol("active");
+export const UPDATE_CONTENT_ACTION = Symbol("content");
 
 export const NO_ACTIVE_NOTE = Symbol("noActiveNote");
 

@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import NoteAction from "./NoteAction";
-import {DELETE_ACTION, NO_ACTIVE_NOTE, RENAME_ACTION, SHARE_ACTION} from "../js/noteSymbols";
+import {
+    DELETE_ACTION,
+    NO_ACTIVE_NOTE,
+    SHARE_ACTION,
+    START_RENAME_ACTION,
+} from "../js/noteSymbols";
 import "../styles/noteActionList.scss"
 
 const actions = [
@@ -10,7 +15,7 @@ const actions = [
     },
     {
         icon: "pencil-alt",
-        action: RENAME_ACTION
+        action: START_RENAME_ACTION
     },
     {
         icon: "share-alt",
@@ -21,7 +26,7 @@ const actions = [
 class NoteActionList extends Component {
     render() {
         let sectionClasses = "noteActionList ";
-        if (!this.hasActiveNote()) {
+        if (this.props.activeNote === NO_ACTIVE_NOTE) {
             sectionClasses += "disabled"
         }
         
@@ -31,26 +36,16 @@ class NoteActionList extends Component {
             </section>
         );
     }
-    
-    hasActiveNote() {
-        return this.props.activeNote !== NO_ACTIVE_NOTE;
-    }
-    
+   
     getNoteActions() {
         return actions.map(({icon, action}) => {
             return (
                 <NoteAction key={action.toString()} icon={icon} onAction={() => {
-                    this.handleNoteAction(action);
+                    this.props.handleNoteAction(action);
                 }}/>
             )
         })
     }
-   
-    handleNoteAction = (action) => {
-        if (this.hasActiveNote()) {
-            this.props.handleNoteAction(action);
-        }
-    };
 }
 
 export default NoteActionList;
