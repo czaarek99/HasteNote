@@ -63,3 +63,13 @@ p {
         grid-template-columns: 650px auto;
     }
 }
+
+@media screen and (min-width: $bigWindow) {
+    #root {
+        grid-template-columns: 650px auto 25%;
+        grid-template-areas:
+            "nav nav nav"
+            "list editor ."
+            "appActions noteActions ."
+    }
+}

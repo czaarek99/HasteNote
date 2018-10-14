@@ -26,8 +26,9 @@ const SMALL_WINDOW = Symbol("smallWindow");
 const MEDIUM_WINDOW = Symbol("mediumWindow");
 const BIG_WINDOW = Symbol("bigWindow");
 
-const SMALL_WINDOW_SIZE = 768;
+const SMALL_WINDOW_SIZE = 820;
 const MEDIUM_WINDOW_SIZE = 1300;
+const BIG_WINDOW_SIZE = 1800;
 
 class AppActionList extends Component {
     
@@ -52,12 +53,12 @@ class AppActionList extends Component {
     handleOnResize = () => {
         const windowWidth = window.innerWidth;
         let newWindowState;
-        if(windowWidth <= SMALL_WINDOW_SIZE) {
-            newWindowState = SMALL_WINDOW;
-        } else if(windowWidth > SMALL_WINDOW_SIZE && windowWidth <= MEDIUM_WINDOW_SIZE) {
+        if(windowWidth >= BIG_WINDOW_SIZE) {
+            newWindowState = BIG_WINDOW;
+        } else if(windowWidth >= MEDIUM_WINDOW_SIZE) {
             newWindowState = MEDIUM_WINDOW;
         } else {
-            newWindowState = BIG_WINDOW;
+            newWindowState = SMALL_WINDOW;
         }
         
         if(newWindowState !== this.state.window) {

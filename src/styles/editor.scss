@@ -1,7 +1,16 @@
+@import "sizes";
+@import "colors";
+
 .noteEditor {
     height: 100%;
     clear: both;
     grid-area: editor;
+}
+
+@media screen and (min-width: $bigWindow) {
+    .noteEditor {
+        border-right: 2px solid $mainColorLight;
+    }
 }
 
 .textEditorArea {
@@ -17,6 +26,7 @@
     box-sizing: border-box;
     display: block;
 }
+
 
 .noNoteSelectedContainer {
     display: flex;

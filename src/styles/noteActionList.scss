@@ -8,10 +8,15 @@
     border-width: 2px 0 0 2px;
 }
 
-
 @media screen and (max-width: $smallWindow) {
     .noteActionList {
         justify-content: center;
+    }
+}
+
+@media screen and (min-width: $bigWindow) {
+    .noteActionList {
+        border-width: 2px 2px 0 2px;
     }
 }
 
