@@ -40,7 +40,10 @@ class Editor extends Component {
     }
     
     handleNoteTyping = (event) => {
-        this.props.handleNoteAction(UPDATE_CONTENT_ACTION, event.target.value);
+        this.props.handleNoteAction(UPDATE_CONTENT_ACTION, {
+            contents: event.target.value,
+            noteId: this.props.activeNote.noteId
+        });
     };
 }
 

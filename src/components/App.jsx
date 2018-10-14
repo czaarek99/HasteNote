@@ -35,6 +35,7 @@ library.add(faShareAlt);
 library.add(faUserCircle);
 library.add(faTimes);
 
+//TODO: Update setState calls to use the merge functionality
 class App extends Component {
     
     constructor(props) {
@@ -241,21 +242,21 @@ class App extends Component {
             } else if (action === UPDATE_NAME_ACTION) {
                 this.updateActiveNote("name", data);
             } else if (action === UPDATE_CONTENT_ACTION) {
-                this.updateActiveNote("contents", data);
+                this.updateActiveNote("contents", data.contents);
                 
                 clearTimeout(this.sendContentsToServerTimeout);
                 this.sendContentsToServerTimeout = setTimeout(() => {
-                    this.sendContentsToServer();
+                    this.sendContentsToServer(data.noteId, data.contents);
                 }, 1000);
             }
         }
     };
     
-    async sendContentsToServer() {
+    async sendContentsToServer(noteId, contents) {
         //TODO: Add saving indicator
-        console.log("Sending contents!");
-        const {noteId, contents} = this.state.activeNote;
+        console.log("Sent contents for: " + noteId);
         
+        this.updateActiveNote("edited", false);
         const body = new URLSearchParams();
         body.append("noteId", noteId);
         body.append("contents", contents);
