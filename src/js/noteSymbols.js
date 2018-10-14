@@ -6,6 +6,10 @@ export const SHARE_ACTION = Symbol("share");
 export const ACTIVE_ACTION = Symbol("active");
 export const UPDATE_CONTENT_ACTION = Symbol("content");
 
+export const OPEN_SIDEBAR_ACTION = Symbol("openSidebar");
+export const CLOSE_SIDEBAR_ACTION = Symbol("closeSidebar");
+export const ADD_NEW_NOTE_ACTION = Symbol("newNote");
+
 export const NO_ACTIVE_NOTE = Symbol("noActiveNote");
 
 export const POSITION_TOP = Symbol("top");

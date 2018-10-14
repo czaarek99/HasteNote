@@ -25,9 +25,11 @@ import {
     faPlus,
     faShareAlt,
     faUserCircle,
-    faTimes
+    faTimes,
+    faBars
 } from '@fortawesome/free-solid-svg-icons'
 import LoadingGrid from "./LoadingGrid";
+import AppActionList from "./AppActionList";
 
 library.add(faTrash);
 library.add(faPencilAlt);
@@ -35,6 +37,7 @@ library.add(faPlus);
 library.add(faShareAlt);
 library.add(faUserCircle);
 library.add(faTimes);
+library.add(faBars);
 
 //TODO: Implement note sharing
 class App extends Component {
@@ -72,14 +75,11 @@ class App extends Component {
                 <NoteList notes={this.state.notes}
                           activeNote={this.state.activeNote}
                           handleNoteAction={this.handleNoteAction}/>
-                
-                <div className="createNoteButton2" onClick={this.addNewNote}>
-                    <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
-                </div>
                 <Editor handleNoteAction={this.handleNoteAction}
                         activeNote={this.state.activeNote}
                         addNewNote={this.addNewNote}
                         contents={this.getActiveNoteContents()}/>
+                <AppActionList handleAppAction={this.handleAppAction}/>
                 <NoteActionList handleNoteAction={this.handleNoteAction}
                                 activeNote={this.state.activeNote}/>
             </React.Fragment>
@@ -213,6 +213,10 @@ class App extends Component {
         
         throw new Error("No note with that id");
     }
+    
+    handleAppAction = (action) => {
+    
+    };
     
     handleNoteAction = async (action, data) => {
         const activeNoteId = this.state.activeNote.noteId;

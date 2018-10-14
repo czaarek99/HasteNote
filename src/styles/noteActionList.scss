@@ -6,7 +6,8 @@
     grid-row-start: 3;
     grid-row-end: 3;
     display: flex;
-    border-top: 2px solid $mainColorLight;
+    border: solid $mainColorLight;
+    border-width: 2px 0 0 2px;
 }
 
 .noteActionList {
@@ -18,6 +19,6 @@
     cursor: not-allowed;
 }
 
-.noteActionList.disabled .noteActionIcon {
+.noteActionList.disabled .actionIcon {
     cursor: not-allowed;
 }

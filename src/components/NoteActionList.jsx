@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import NoteAction from "./NoteAction";
+import {actionsToJSX} from "./Action";
 import {
     DELETE_ACTION,
     NO_ACTIVE_NOTE,
@@ -32,19 +32,9 @@ class NoteActionList extends Component {
         
         return (
             <section className={sectionClasses}>
-                {this.getNoteActions()}
+                {actionsToJSX(actions, this.props.handleNoteAction)}
             </section>
         );
-    }
-   
-    getNoteActions() {
-        return actions.map(({icon, action}) => {
-            return (
-                <NoteAction key={action.toString()} icon={icon} onAction={() => {
-                    this.props.handleNoteAction(action);
-                }}/>
-            )
-        })
     }
 }
 

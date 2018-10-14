@@ -1,16 +1,5 @@
 @import "colors";
 
-.createNoteButton2 {
-    cursor: pointer;
-    border: solid $mainColorLight;
-    border-width: 2px 2px 0 0;
-    text-align: center;
-    grid-column-start: 1;
-    grid-column-end: 1;
-    grid-row-start: 3;
-    grid-row-end: 3;
-}
-
 .createNoteIcon {
     height: 30px;
     width: 30px;
