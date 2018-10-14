@@ -71,4 +71,46 @@ dbExports.Note = defineModel("Note", {
 
 addDefaultUserAssociation(dbExports.Note);
 
+const Log = defineModel("Log", {
+    action: {
+        type: DataTypes.STRING(70)
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    ip: {
+        type: DataTypes.STRING(50),
+        allowNull: true
+    },
+    data: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+    date: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    }
+});
+
+addDefaultUserAssociation(Log);
+
+
+dbExports.logAction = (req, action, data) => {
+    let query = {
+        action, data
+    };
+    
+    if (req) {
+        if (req.session && req.session.userId) {
+            query.userId = req.session.userId;
+        }
+        
+        query.ip = req.ip;
+    }
+    
+    
+    return Log.create(query);
+};
+
 module.exports = dbExports;

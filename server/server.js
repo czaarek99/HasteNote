@@ -53,12 +53,17 @@ async function startServer() {
     
     app.use("/note", noteRoute);
     
-    app.use((error, req, res, next) => {
+    app.use(async (error, req, res, next) => {
         if(error instanceof util.UserError) {
             res.status(error.statusCode).send(error.message);
+        } else if(error.status !== 400){
+            try {
+                const logged = await database.logAction(req, "websiteError");
+                res.status(500).send("A critical server error occurred. Error id: " + logged.id);
+            } catch(error) {
+                res.status(500).send("A critical server error occurred. Failed to log");
+            }
         }
-        
-        //TODO: Add error handling for other errors
     });
     
     app.listen(port);
