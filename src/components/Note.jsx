@@ -14,10 +14,12 @@ class Note extends Component {
     }
     
     render() {
-        const {name, renaming, noteId} = this.props.note;
+        const {name, renaming, noteId, saving} = this.props.note;
         
         let noteContainerContents = <p className="noteName">{name}</p>;
-        if (renaming) {
+        if(saving) {
+            noteContainerContents = <p className="noteName">Saving...</p>
+        } else if (renaming) {
             noteContainerContents = <React.Fragment>
                 <input className="noteNameInput"
                        value={name}

@@ -27,6 +27,7 @@ router.get("/all", async (req, res) => {
         
         //TODO: Should probably be handled globally by app
         plainNote.renaming = false;
+        plainNote.saving = false;
         
         response.push(plainNote);
     }

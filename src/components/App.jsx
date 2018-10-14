@@ -191,6 +191,22 @@ class App extends Component {
         });
     }
     
+    updateNote(noteId, field, value) {
+        const notes = [...this.state.notes];
+        for(let i = 0; i < notes.length; i++) {
+            const note = notes[i];
+            
+            if(note.noteId === noteId) {
+                notes[i] = {...note};
+                notes[i][field] = value;
+                
+                return this.setState({notes});
+            }
+        }
+        
+        throw new Error("No note with that id");
+    }
+    
     handleNoteAction = async (action, data) => {
         const activeNoteId = this.state.activeNote.noteId;
         
@@ -243,18 +259,19 @@ class App extends Component {
             } else if (action === UPDATE_NAME_ACTION) {
                 this.updateActiveNote("name", data);
             } else if (action === UPDATE_CONTENT_ACTION) {
-                this.updateActiveNote("contents", data.contents);
+                const {contents, noteId} = data;
+                this.updateActiveNote("contents", contents);
                 
                 clearTimeout(this.sendContentsToServerTimeout);
                 this.sendContentsToServerTimeout = setTimeout(() => {
-                    this.sendContentsToServer(data.noteId, data.contents);
+                    this.updateNote(noteId, "saving", true);
+                    this.sendContentsToServer(noteId, contents);
                 }, 1000);
             }
         }
     };
     
     async sendContentsToServer(noteId, contents) {
-        //TODO: Add saving indicator
         console.log("Sent contents for: " + noteId);
         
         this.updateActiveNote("edited", false);
@@ -268,7 +285,16 @@ class App extends Component {
             body
         });
         
-        if (!response.ok) {
+        if (response.ok) {
+            /*
+            If the user has a really fast connection to the server
+            we delay the display since we don't want to just flash
+            the word "Saving".
+             */
+            setTimeout(() => {
+                this.updateNote(noteId, "saving", false);
+            }, 500)
+        } else {
             await this.showFetchError(response, "update content");
         }
     }
