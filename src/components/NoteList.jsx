@@ -24,7 +24,7 @@ class NoteList extends Component {
         } else {
             return this.props.notes.map((note) => {
                 return <Note note={note}
-                             key={note.id}
+                             key={note.noteId}
                              activeNote={this.props.activeNote}
                              handleNameChange={this.props.handleNameChange}
                              handleFinishNameChange={this.props.handleFinishNameChange}
