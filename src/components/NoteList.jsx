@@ -4,8 +4,13 @@ import Note from "./Note";
 
 class NoteList extends Component {
     render() {
+        let classNames = "noteList ";
+        if(this.props.open) {
+            classNames += "open";
+        }
+        
         return (
-            <div className="noteList">
+            <div className={classNames}>
                 {this.getNoteList()}
             </div>
         );

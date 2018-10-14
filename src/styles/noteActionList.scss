@@ -1,10 +1,18 @@
 @import "colors";
+@import "sizes";
 
 .noteActionList {
     grid-area: noteActions;
     display: flex;
     border: solid $mainColorLight;
     border-width: 2px 0 0 2px;
+}
+
+
+@media screen and (max-width: $smallWindow) {
+    .noteActionList {
+        justify-content: center;
+    }
 }
 
 .noteActionList {

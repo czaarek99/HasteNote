@@ -1,4 +1,5 @@
 @import "colors";
+@import "sizes";
 
 html {
     height: 100%;
@@ -45,4 +46,14 @@ p {
         "nav nav"
         "list editor"
         "appActions noteActions";
+}
+
+@media screen and (max-width: $smallWindow) {
+    #root {
+        grid-template-columns: auto;
+        grid-template-areas:
+                "nav nav"
+                "editor editor"
+                "appActions noteActions";
+    }
 }

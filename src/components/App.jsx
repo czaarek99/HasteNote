@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Navbar from "./Navbar";
 import NoteList from "./NoteList"
 import Editor from "./Editor";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import randomString from 'randomstring-promise';
 import '../styles/app.scss';
@@ -52,7 +51,8 @@ class App extends Component {
             activeNote: NO_ACTIVE_NOTE,
             loggedIn: cookies.get("loggedIn") === "true",
             loadingNotes: true,
-            error: null
+            error: null,
+            sidebarOpen: false
         };
         
         this.handleNoteAction = this.handleNoteAction.bind(this);
@@ -73,6 +73,7 @@ class App extends Component {
         } else {
             pageContents = <React.Fragment>
                 <NoteList notes={this.state.notes}
+                          open={this.state.sidebarOpen}
                           activeNote={this.state.activeNote}
                           handleNoteAction={this.handleNoteAction}/>
                 <Editor handleNoteAction={this.handleNoteAction}
@@ -198,7 +199,8 @@ class App extends Component {
             notes.push(note);
             this.setState({
                 notes,
-                activeNote: note
+                activeNote: note,
+                sidebarOpen: true
             });
             
             const body = new URLSearchParams();
@@ -214,9 +216,13 @@ class App extends Component {
                 await this.showFetchError(response, "add");
             }
         } else if(action === CLOSE_SIDEBAR_ACTION) {
-        
+            this.setState({
+                sidebarOpen: false
+            })
         } else if(action === OPEN_SIDEBAR_ACTION) {
-            
+            this.setState({
+                sidebarOpen: true
+            })
         }
     };
     

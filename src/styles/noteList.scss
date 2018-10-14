@@ -1,4 +1,5 @@
 @import "colors";
+@import "sizes";
 
 .noteList {
     padding: 5px;
@@ -6,6 +7,22 @@
     flex: 1;
     overflow-y: scroll;
     grid-area: list;
+    transition: left 1s;
+}
+
+@media screen and (max-width: $smallWindow) {
+    .noteList {
+        position: fixed;
+        top: 80px;
+        width: 300px;
+        left: -330px;
+        bottom: 50px;
+        background-color: white;
+    }
+
+    .noteList.open {
+        left: 0;
+    }
 }
 
 .noNotesText {
