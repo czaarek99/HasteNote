@@ -5,17 +5,20 @@ import Editor from "./Editor";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faTrash, faPencilAlt, faPlus, faShareAlt, faUserCircle} from '@fortawesome/free-solid-svg-icons'
-import {
-    ACTIVE_ACTION,
-    DELETE_ACTION,
-    NO_ACTIVE_NOTE, START_RENAME_ACTION, STOP_RENAME_ACTION,
-    UPDATE_NAME_ACTION
-} from "../js/noteSymbols";
 import randomString from 'randomstring-promise';
 import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
 import {withCookies} from "react-cookie";
 import UserLogin from "./UserLogin";
+import {
+    ACTIVE_ACTION,
+    DELETE_ACTION,
+    NO_ACTIVE_NOTE,
+    START_RENAME_ACTION,
+    STOP_RENAME_ACTION,
+    UPDATE_CONTENT_ACTION,
+    UPDATE_NAME_ACTION
+} from "../js/noteSymbols";
 
 library.add(faTrash);
 library.add(faPencilAlt);
@@ -36,9 +39,10 @@ class App extends Component {
             activeNote: NO_ACTIVE_NOTE,
             loggedIn: cookies.get("loggedIn") === "true",
             loadingNotes: true
-        }
+        };
         
         this.handleNoteAction = this.handleNoteAction.bind(this);
+        this.sendContentsToServerTimeout = null;
     }
     
     render() {
@@ -61,7 +65,7 @@ class App extends Component {
                 <div className="createNoteButton2" onClick={this.addNewNote}>
                     <FontAwesomeIcon className="createNoteIcon" icon="plus" size="2x" title="Add new note"/>
                 </div>
-                <Editor handleNoteTyping={this.handleNoteTyping}
+                <Editor handleNoteAction={this.handleNoteAction}
                         activeNote={this.state.activeNote}
                         addNewNote={this.addNewNote}
                         contents={this.getActiveNoteContents()}/>
@@ -159,10 +163,6 @@ class App extends Component {
         });
     }
     
-    handleNoteTyping = (event) => {
-        this.updateActiveNote("contents", event.target.value);
-    };
-    
     handleNoteAction = async (action, data) => {
         const activeNoteId = this.state.activeNote.noteId;
         
@@ -177,7 +177,6 @@ class App extends Component {
             body.append("noteId", activeNoteId);
             
             if (action === DELETE_ACTION) {
-                
                 const notes = this.state.notes.filter((note) => {
                     return note.noteId !== activeNoteId;
                 });
@@ -186,7 +185,6 @@ class App extends Component {
                     notes,
                     activeNote: NO_ACTIVE_NOTE
                 });
-                
                 
                 const response = await fetch("/note", {
                     method: "DELETE",
@@ -198,7 +196,6 @@ class App extends Component {
                     const responseText = await response.text();
                     console.log("Failed to delete note with error: " + responseText);
                 }
-                
             } else if (action === START_RENAME_ACTION) {
                 this.updateActiveNote("renaming", true);
             } else if (action === STOP_RENAME_ACTION) {
@@ -219,7 +216,35 @@ class App extends Component {
                 }
             } else if (action === UPDATE_NAME_ACTION) {
                 this.updateActiveNote("name", data);
+            } else if (action === UPDATE_CONTENT_ACTION) {
+                this.updateActiveNote("contents", data);
+                
+                clearTimeout(this.sendContentsToServerTimeout);
+                this.sendContentsToServerTimeout = setTimeout(() => {
+                    this.sendContentsToServer();
+                }, 1000);
             }
+        }
+    };
+    
+    async sendContentsToServer() {
+        //TODO: Add saving indicator
+        console.log("Sending contents!");
+        const {noteId, contents} = this.state.activeNote;
+        
+        const body = new URLSearchParams();
+        body.append("noteId", noteId);
+        body.append("contents", contents);
+        
+        const response = await fetch("/note/contents", {
+            method: "PATCH",
+            credentials: "include",
+            body
+        });
+        
+        if (response.status !== 200) {
+            const responseText = await response.text();
+            console.log("Failed to update note contents with error: " + responseText);
         }
     }
 }

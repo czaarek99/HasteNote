@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "../styles/editor.scss"
-import {NO_ACTIVE_NOTE} from "../js/noteSymbols";
+import {NO_ACTIVE_NOTE, UPDATE_CONTENT_ACTION} from "../js/noteSymbols";
 
 class Editor extends Component {
     
@@ -40,7 +40,7 @@ class Editor extends Component {
     }
     
     handleNoteTyping = (event) => {
-        this.props.handleNoteTyping(event);
+        this.props.handleNoteAction(UPDATE_CONTENT_ACTION, event.target.value);
     };
 }
 
