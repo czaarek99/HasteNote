@@ -1,6 +1,6 @@
 const router = require("express-promise-router")();
 const database = require("../database");
-const util = require("util");
+const util = require("../util");
 
 function requireNoteId(req) {
     const noteId = req.body.noteId;
@@ -87,10 +87,6 @@ router.patch("/contents", async (req, res) => {
 router.patch("/name", async (req, res) => {
     const noteId = requireNoteId(req);
     let name = req.body.name;
-    
-    if (name === undefined || name === "") {
-        throw new util.UserError("Please provide a name", 400);
-    }
     
     name = name.toString();
     
