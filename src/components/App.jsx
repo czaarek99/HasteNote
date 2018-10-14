@@ -9,6 +9,7 @@ import '../styles/app.scss';
 import NoteActionList from "./NoteActionList";
 import {withCookies} from "react-cookie";
 import UserLogin from "./UserLogin";
+import Modal from "./Modal";
 import {
     ACTIVE_ACTION,
     DELETE_ACTION,
@@ -34,7 +35,6 @@ library.add(faShareAlt);
 library.add(faUserCircle);
 library.add(faTimes);
 
-//TODO: Show errors if fetch() for some reason fails in the background
 class App extends Component {
     
     constructor(props) {
@@ -46,7 +46,8 @@ class App extends Component {
             notes: [],
             activeNote: NO_ACTIVE_NOTE,
             loggedIn: cookies.get("loggedIn") === "true",
-            loadingNotes: true
+            loadingNotes: true,
+            error: null
         };
         
         this.handleNoteAction = this.handleNoteAction.bind(this);
@@ -82,17 +83,36 @@ class App extends Component {
             </React.Fragment>
         }
         
+        let errorModal = <React.Fragment/>;
+        if (this.state.error !== null) {
+            errorModal = <Modal title="Error">
+                <p className="errorText">{this.state.error}</p>
+            </Modal>;
+        }
+        
         const username = this.props.cookies.get("username");
         return (
             <React.Fragment>
                 <Navbar loggedIn={this.state.loggedIn} username={username}/>
                 {pageContents}
+                {errorModal}
             </React.Fragment>
         );
     }
     
     componentDidMount() {
         this.fetchNotes();
+    }
+    
+    showError(message) {
+        this.setState({
+            error: message
+        })
+    }
+    
+    async showFetchError(response, what) {
+        const responseText = await response.text();
+        this.showError(`Error on note ${what} with message: ${responseText}`);
     }
     
     async fetchNotes() {
@@ -142,9 +162,8 @@ class App extends Component {
             body
         });
         
-        if (response.status !== 200) {
-            const responseText = await response.text();
-            console.log("Failed to create new note with error: " + responseText);
+        if (!response.ok) {
+            await this.showFetchError(response, "add");
         }
     };
     
@@ -200,15 +219,14 @@ class App extends Component {
                     body
                 });
                 
-                if (response.status !== 200) {
-                    const responseText = await response.text();
-                    console.log("Failed to delete note with error: " + responseText);
+                if (!response.ok) {
+                    await this.showFetchError(response, "delete");
                 }
             } else if (action === START_RENAME_ACTION) {
                 this.updateActiveNote("renaming", true);
             } else if (action === STOP_RENAME_ACTION) {
-                //TODO: Error on empty note name
                 const {name} = this.state.activeNote;
+                
                 this.updateActiveNote("renaming", false);
                 
                 body.set("name", name);
@@ -218,9 +236,8 @@ class App extends Component {
                     body
                 });
                 
-                if (response.status !== 200) {
-                    const responseText = await response.text();
-                    console.log("Failed to rename note with error: " + responseText);
+                if (!response.ok) {
+                    await this.showFetchError(response, "rename");
                 }
             } else if (action === UPDATE_NAME_ACTION) {
                 this.updateActiveNote("name", data);
@@ -250,9 +267,8 @@ class App extends Component {
             body
         });
         
-        if (response.status !== 200) {
-            const responseText = await response.text();
-            console.log("Failed to update note contents with error: " + responseText);
+        if (!response.ok) {
+            await this.showFetchError(response, "update content");
         }
     }
 }
