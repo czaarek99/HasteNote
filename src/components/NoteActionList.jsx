@@ -11,15 +11,18 @@ import "../styles/noteActionList.scss"
 const actions = [
     {
         icon: "trash",
-        action: DELETE_ACTION
+        action: DELETE_ACTION,
+        title: "Delete note"
     },
     {
         icon: "pencil-alt",
-        action: START_RENAME_ACTION
+        action: START_RENAME_ACTION,
+        title: "Rename note"
     },
     {
         icon: "share-alt",
-        action: SHARE_ACTION
+        action: SHARE_ACTION,
+        title: "Share note"
     }
 ];
 

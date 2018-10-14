@@ -5,7 +5,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 class Action extends Component {
     render() {
         return (
-            <div className="action" onClick={this.props.onAction}>
+            <div title={this.props.title}
+                 className="action"
+                 onClick={this.props.onAction}>
                 <FontAwesomeIcon icon={this.props.icon} size="2x" className="actionIcon"/>
             </div>
         );
@@ -15,11 +17,11 @@ class Action extends Component {
 export default Action;
 
 export function actionsToJSX(actions, handleAction) {
-    return actions.map(({icon, action}) => {
+    return actions.map(({icon, action, title}) => {
         return (
-            <Action key={action.toString()} icon={icon} onAction={() => {
-                handleAction(action);
-            }}/>
+            <Action title={title}
+                    key={action.toString()}
+                    icon={icon} onAction={() => {handleAction(action);}}/>
         )
     })
 }

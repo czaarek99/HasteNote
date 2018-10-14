@@ -6,18 +6,21 @@ import "../styles/appActionList.scss"
 const defaultActions = [
     {
         icon: "plus",
-        action: ADD_NEW_NOTE_ACTION
+        action: ADD_NEW_NOTE_ACTION,
+        title: "Create a new note"
     }
 ];
 
 const smallScreenActions = [
     {
         icon: "bars",
-        action: OPEN_SIDEBAR_ACTION
+        action: OPEN_SIDEBAR_ACTION,
+        title: "Open Note List"
     },
     {
         icon: "times",
-        action: CLOSE_SIDEBAR_ACTION
+        action: CLOSE_SIDEBAR_ACTION,
+        title: "Close Note List"
     }
 ];
 
