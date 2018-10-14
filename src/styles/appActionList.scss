@@ -1,5 +1,8 @@
+@import "colors";
+
 .appActionList {
     grid-area: appActions;
     display: flex;
+    border-top: 2px solid $mainColorLight;
     justify-content: center;
 }
