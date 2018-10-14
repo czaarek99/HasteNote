@@ -88,7 +88,7 @@ router.patch("/name", async (req, res) => {
     const noteId = requireNoteId(req);
     let name = req.body.name;
     
-    if (name === undefined) {
+    if (name === undefined || name === "") {
         throw new util.UserError("Please provide a name", 400);
     }
     

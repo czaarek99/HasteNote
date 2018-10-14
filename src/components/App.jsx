@@ -202,6 +202,7 @@ class App extends Component {
             } else if (action === START_RENAME_ACTION) {
                 this.updateActiveNote("renaming", true);
             } else if (action === STOP_RENAME_ACTION) {
+                //TODO: Error on empty note name
                 const {name} = this.state.activeNote;
                 this.updateActiveNote("renaming", false);
                 
