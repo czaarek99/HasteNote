@@ -77,6 +77,10 @@ class Modal extends Component {
             const state = {...this.state};
             state.closed = true;
             this.setState(state);
+            
+            if(this.props.onClose) {
+                this.props.onClose();
+            }
         }, MODAL_FADE_TIME);
     }
 }
