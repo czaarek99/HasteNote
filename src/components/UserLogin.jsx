@@ -69,21 +69,19 @@ class UserLogin extends Component {
     };
     
     handleLoginInputChange = (event) => {
-        const state = {...this.state};
-        state.username = event.target.value;
-        this.setState(state);
+        this.setState({
+            username: event.target.value
+        });
     };
     
     handlePasswordInputChange = (event) => {
-        const state = {...this.state};
-        state.password = event.target.value;
-        this.setState(state);
+        this.setState({
+            password: event.target.value
+        });
     };
     
     setLoading = (loading) => {
-        const state = {...this.state};
-        state.loading = loading;
-        this.setState(state);
+        this.setState({loading});
     };
     
     handleOnRegister = async () => {
@@ -115,10 +113,10 @@ class UserLogin extends Component {
     };
     
     showError = (error) => {
-        const state = {...this.state};
-        state.error = error;
-        state.loading = false;
-        this.setState(state);
+        this.setState({
+            error,
+            loading: false
+        });
     };
 }
 

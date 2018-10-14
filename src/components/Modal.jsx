@@ -54,9 +54,7 @@ class Modal extends Component {
     }
     
     updateShow(show) {
-        const state = {...this.state};
-        state.show = show;
-        this.setState(state);
+        this.setState({show});
     }
     
     componentDidMount() {
@@ -74,9 +72,9 @@ class Modal extends Component {
     handleOnClose = () => {
         this.updateShow(false);
         setTimeout(() => {
-            const state = {...this.state};
-            state.closed = true;
-            this.setState(state);
+            this.setState({
+                closed: true
+            });
             
             if(this.props.onClose) {
                 this.props.onClose();

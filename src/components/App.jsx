@@ -35,7 +35,6 @@ library.add(faShareAlt);
 library.add(faUserCircle);
 library.add(faTimes);
 
-//TODO: Update setState calls to use the merge functionality
 class App extends Component {
     
     constructor(props) {
