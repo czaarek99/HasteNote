@@ -6,7 +6,7 @@ function requireNoteId(req) {
     const noteId = req.body.noteId;
     
     if(noteId === undefined) {
-        throw new util.UserError("Please provide a noteId to delete", 400);
+        throw new util.UserError("Please provide a noteId for this action", 400);
     }
     
     return noteId;
