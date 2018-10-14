@@ -120,15 +120,14 @@ class App extends Component {
             credentials: "include",
         });
         
-        if (response.status === 200) {
+        if (response.ok) {
             const notes = await response.json();
             const state = {...this.state};
             state.loadingNotes = false;
             state.notes = notes;
             this.setState(state);
         } else {
-            const responseText = await response.text();
-            console.log("Loading notes error: " + responseText);
+            await this.showFetchError(response, "load");
         }
     }
     
