@@ -58,7 +58,7 @@ class AppActionList extends Component {
         let newWindowState;
         if(windowWidth >= BIG_WINDOW_SIZE) {
             newWindowState = BIG_WINDOW;
-        } else if(windowWidth >= MEDIUM_WINDOW_SIZE) {
+        } else if(windowWidth >= SMALL_WINDOW_SIZE) {
             newWindowState = MEDIUM_WINDOW;
         } else {
             newWindowState = SMALL_WINDOW;
