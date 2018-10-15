@@ -12,6 +12,14 @@ function requireNoteId(req) {
     return noteId;
 }
 
+router.all("*", (req, res, next) => {
+    if (req.session && req.session.loggedIn) {
+        next();
+    } else {
+        throw new util.UserError("This route can only be accessed after logging in", 401)
+    }
+});
+
 router.get("/all", async (req, res) => {
     const notes = await database.Note.findAll({
         where: {

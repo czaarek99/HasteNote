@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const util = require("./util");
+const path = require("path");
 const port = process.env.PORT || 5000;
 
 const loginRoute = require("./routes/login");
@@ -42,16 +43,17 @@ async function startServer() {
     }));
     
     app.use("/login", loginRoute);
-    
-    app.all("*", (req, res, next) => {
-        if(req.session && req.session.loggedIn) {
-            next();
-        } else {
-            throw new util.UserError("This route can only be accessed after logging in", 401)
-        }
-    });
-    
     app.use("/note", noteRoute);
+    
+    if(process.env.NODE_ENV === "production") {
+        const root = path.join(__dirname, "..", "build");
+        app.use(express.static(root));
+        
+        app.use((req, res) => {
+            res.sendFile("index.html", {root});
+        });
+        
+    }
     
     app.use(async (error, req, res, next) => {
         if(error instanceof util.UserError) {
