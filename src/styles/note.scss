@@ -36,6 +36,9 @@
 .noteName {
     margin-bottom: 2px;
     height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .noteContainer.active .noteName {
