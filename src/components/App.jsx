@@ -38,8 +38,9 @@ library.add(faUserCircle);
 library.add(faTimes);
 library.add(faBars);
 
+const MAX_NOTE_AMOUNT = 100;
+
 //TODO: Implement note sharing
-//TODO: Limit notes to a logical amount
 class App extends Component {
     
     constructor(props) {
@@ -194,38 +195,43 @@ class App extends Component {
     
     handleAppAction = async (action) => {
         if (action === ADD_NEW_NOTE_ACTION) {
-            const notes = [...this.state.notes];
-            
-            const noteId = await randomString(16, "alphanumeric");
-            const note = {
-                name: "Unnamed",
-                color: "white",
-                renaming: true,
-                noteId
-            };
-            
-            notes.forEach((note) => {
-                note.renaming = false;
-            });
-            
-            notes.push(note);
-            this.setState({
-                notes,
-                activeNote: note,
-                sidebarOpen: true
-            });
-            
-            const body = new URLSearchParams();
-            body.set("noteId", noteId);
-            
-            const response = await fetch("/note", {
-                method: "PUT",
-                credentials: "include",
-                body
-            });
-            
-            if (!response.ok) {
-                await this.showFetchError(response, "add");
+            if (this.state.notes.length >= MAX_NOTE_AMOUNT) {
+                this.showError(`You have reached the max amount of ${MAX_NOTE_AMOUNT}
+                 notes. If you want to add more please delete some of your other notes.`)
+            } else {
+                const notes = [...this.state.notes];
+                
+                const noteId = await randomString(16, "alphanumeric");
+                const note = {
+                    name: "Unnamed",
+                    color: "white",
+                    renaming: true,
+                    noteId
+                };
+                
+                notes.forEach((note) => {
+                    note.renaming = false;
+                });
+                
+                notes.push(note);
+                this.setState({
+                    notes,
+                    activeNote: note,
+                    sidebarOpen: true
+                });
+                
+                const body = new URLSearchParams();
+                body.set("noteId", noteId);
+                
+                const response = await fetch("/note", {
+                    method: "PUT",
+                    credentials: "include",
+                    body
+                });
+                
+                if (!response.ok) {
+                    await this.showFetchError(response, "add");
+                }
             }
         } else if (action === CLOSE_SIDEBAR_ACTION) {
             this.setState({

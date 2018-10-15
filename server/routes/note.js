@@ -3,6 +3,7 @@ const database = require("../database");
 const util = require("../util");
 
 const NOTE_NAME_MAX_LENGTH = 32;
+const MAX_NOTE_AMOUNT = 100;
 
 function requireNoteId(req) {
     const noteId = req.body.noteId;
@@ -53,6 +54,15 @@ router.delete("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
     const noteId = requireNoteId(req);
+    const noteCount = await database.Note.count({
+        where: {
+            userId: req.session.userId
+        }
+    });
+    
+    if(noteCount >= MAX_NOTE_AMOUNT) {
+        throw new util.UserError("Max note amount already reached", 400);
+    }
     
     await database.Note.create({
         noteId,
