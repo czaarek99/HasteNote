@@ -40,6 +40,7 @@ library.add(faBars);
 
 const MAX_NOTE_AMOUNT = 100;
 
+//TODO: Add max size to note
 //TODO: Implement note sharing
 class App extends Component {
     
