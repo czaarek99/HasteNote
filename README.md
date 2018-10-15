@@ -1,8 +1,14 @@
 # HasteNote
 
-HasteNote is a simple web based app for taking notes.
-It allows each user to take up to 100 notes per account.
-It's also responsive so it looks great on big and small screens.
+HasteNote is a simple web based app based on React + Express 
+for taking notes. It allows each user to take up to 100 notes 
+per account. It's also responsive so it looks great on big and
+small screens.
+
+## Browser Compatibility
+HasteNote uses css-grid, flexbox and also fetch(). If you're running an
+old browser it will most likely not work. I recommend using the latest
+version of Google Chrome for the best experience.
 
 ## Live Demo
 A live demo can be found at <http://coming-soon.com>
@@ -26,7 +32,6 @@ Starting the project in production mode is also simple.
 Just run: `npm run prod`. You'll also have to set up the database
 manually in this case. The default port is 5000, to change that set
 the PORT environment variable to a number.
-
 
 ### Pull Requests & Issues
 This project was created because I wanted to learn react. If you do find something
