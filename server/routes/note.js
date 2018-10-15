@@ -2,6 +2,8 @@ const router = require("express-promise-router")();
 const database = require("../database");
 const util = require("../util");
 
+const NOTE_NAME_MAX_LENGTH = 32;
+
 function requireNoteId(req) {
     const noteId = req.body.noteId;
     
@@ -87,6 +89,9 @@ router.patch("/name", async (req, res) => {
     let name = req.body.name;
     
     name = name.toString();
+    if(name.length > NOTE_NAME_MAX_LENGTH) {
+        name = name.substr(0, NOTE_NAME_MAX_LENGTH);
+    }
     
     await database.Note.update({
         name

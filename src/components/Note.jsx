@@ -3,6 +3,8 @@ import "../styles/note.scss"
 import onClickOutside from "react-onclickoutside"
 import {ACTIVE_ACTION, STOP_RENAME_ACTION, UPDATE_NAME_ACTION} from "../js/noteSymbols";
 
+const NOTE_NAME_MAX_LENGTH = 32;
+
 class Note extends Component {
     
     constructor(props) {
@@ -22,6 +24,7 @@ class Note extends Component {
         } else if (renaming) {
             noteContainerContents = <React.Fragment>
                 <input className="noteNameInput"
+                       maxLength={NOTE_NAME_MAX_LENGTH}
                        value={name}
                        onChange={this.handleNameChange}
                        onKeyDown={this.handleReactKeyDown}

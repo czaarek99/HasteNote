@@ -40,7 +40,6 @@ library.add(faBars);
 
 //TODO: Implement note sharing
 //TODO: Limit notes to a logical amount
-//TODO: Limit note names
 class App extends Component {
     
     constructor(props) {
