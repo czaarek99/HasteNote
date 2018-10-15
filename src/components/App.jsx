@@ -39,6 +39,8 @@ library.add(faTimes);
 library.add(faBars);
 
 //TODO: Implement note sharing
+//TODO: Limit notes to a logical amount
+//TODO: Limit note names
 class App extends Component {
     
     constructor(props) {
@@ -78,7 +80,9 @@ class App extends Component {
                           handleNoteAction={this.handleNoteAction}/>
                 <Editor handleNoteAction={this.handleNoteAction}
                         activeNote={this.state.activeNote}
-                        addNewNote={() => {this.handleAppAction(ADD_NEW_NOTE_ACTION)}}
+                        addNewNote={() => {
+                            this.handleAppAction(ADD_NEW_NOTE_ACTION)
+                        }}
                         contents={this.getActiveNoteContents()}/>
                 <AppActionList handleAppAction={this.handleAppAction}/>
                 <NoteActionList handleNoteAction={this.handleNoteAction}
@@ -104,7 +108,7 @@ class App extends Component {
     }
     
     componentDidMount() {
-        if(this.state.loggedIn) {
+        if (this.state.loggedIn) {
             this.fetchNotes();
         }
     }
@@ -154,16 +158,23 @@ class App extends Component {
     }
     
     updateActiveNote(field, value) {
-        const activeNote = this.state.activeNote;
         const notes = [...this.state.notes];
-        const index = notes.indexOf(activeNote);
-        const newNote = {...activeNote};
-        notes[index] = newNote;
-        notes[index][field] = value;
-        this.setState({
-            notes,
-            activeNote: newNote
-        });
+        for (let i = 0; i < notes.length; i++) {
+            const note = notes[i];
+            
+            if (note.noteId === this.state.activeNote.noteId) {
+                const newNote = {...note};
+                newNote[field] = value;
+                notes[i] = newNote;
+                
+                return this.setState({
+                    notes,
+                    activeNote: newNote
+                });
+            }
+        }
+        
+        throw new Error("No note with that id");
     }
     
     updateNote(noteId, field, value) {
@@ -217,11 +228,11 @@ class App extends Component {
             if (!response.ok) {
                 await this.showFetchError(response, "add");
             }
-        } else if(action === CLOSE_SIDEBAR_ACTION) {
+        } else if (action === CLOSE_SIDEBAR_ACTION) {
             this.setState({
                 sidebarOpen: false
             })
-        } else if(action === OPEN_SIDEBAR_ACTION) {
+        } else if (action === OPEN_SIDEBAR_ACTION) {
             this.setState({
                 sidebarOpen: true
             })
@@ -295,7 +306,7 @@ class App extends Component {
     async sendContentsToServer(noteId, contents) {
         console.log("Sent contents for: " + noteId);
         
-        this.updateActiveNote("edited", false);
+        //this.updateActiveNote("edited", false);
         const body = new URLSearchParams();
         body.append("noteId", noteId);
         body.append("contents", contents);
