@@ -4,17 +4,18 @@
 .noteList {
     padding: 5px;
     border-right: 2px solid lighten($mainColorLight, 12%);
-    flex: 1;
     overflow-y: scroll;
     grid-area: list;
     transition: left 1s;
+    justify-content: center;
+    align-content: flex-start;
 }
 
 @media screen and (max-width: $smallWindow) {
     .noteList {
         position: fixed;
         top: 80px;
-        width: 300px;
+        width: 320px;
         left: -330px;
         bottom: 50px;
         background-color: white;
@@ -27,7 +28,6 @@
 
 @media screen and (min-width: $mediumWindow) {
     .noteList {
-        justify-content: center;
         display: flex;
         flex-flow: wrap;
     }
